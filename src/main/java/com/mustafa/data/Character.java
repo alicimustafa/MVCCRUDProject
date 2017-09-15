@@ -1,5 +1,6 @@
 package com.mustafa.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Character {
@@ -14,11 +15,12 @@ public class Character {
 		super();
 		this.name = name;
 		this.characterClass = characterClass;
+		this.backpack = new ArrayList<>();
 	}
 	
 	
 	public void addItemToBackpack(Items item) {
-		
+		this.backpack.add(item);
 	}
 
 	public String getName() {

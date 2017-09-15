@@ -3,8 +3,10 @@ package com.mustafa.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.ServletContextResource;
 
+@Component
 public class ItemDAOImpl implements ItemDAO {
 
 	List<Items> itemList;
