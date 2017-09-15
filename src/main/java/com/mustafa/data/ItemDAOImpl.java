@@ -1,5 +1,6 @@
 package com.mustafa.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.context.support.ServletContextResource;
@@ -8,9 +9,33 @@ public class ItemDAOImpl implements ItemDAO {
 
 	List<Items> itemList;
 	ServletContextResource contex;
-	private final String FILE = "ItemList";
+	//private final String FILE = "ItemList.txt";
 	
 	public ItemDAOImpl() {
+		itemList = new ArrayList<>();
+		this.init();
+	}
+	
+	private void init() {
+		itemList.add(new Items("Sword", ItemType.MAIN_HAND));
+		itemList.add(new Items("Axe", ItemType.MAIN_HAND));
+		itemList.add(new Items("Spear", ItemType.MAIN_HAND));
+		itemList.add(new Items("Mace", ItemType.MAIN_HAND));
+		itemList.add(new Items("Bow", ItemType.MAIN_HAND));
+		itemList.add(new Items("Staf", ItemType.MAIN_HAND));
+		itemList.add(new Items("Dagger", ItemType.MAIN_HAND));
+		itemList.add(new Items("Shield", ItemType.OFF_HAND));		
+		itemList.add(new Items("Spell Book", ItemType.OFF_HAND));		
+		itemList.add(new Items("Holy symbol", ItemType.OFF_HAND));		
+		itemList.add(new Items("Gambeson", ItemType.ARMOR));		
+		itemList.add(new Items("Leather", ItemType.ARMOR));		
+		itemList.add(new Items("Chain Mail", ItemType.ARMOR));		
+		itemList.add(new Items("Plate Mail", ItemType.ARMOR));		
+		itemList.add(new Items("Rope", ItemType.OTHER));		
+		itemList.add(new Items("Flint and Steel", ItemType.OTHER));		
+		itemList.add(new Items("Bedding", ItemType.OTHER));		
+		itemList.add(new Items("Dry Rations", ItemType.OTHER));		
+		itemList.add(new Items("Water Skin", ItemType.OTHER));		
 	}
 	
 	public ItemDAOImpl(ServletContextResource contex) {
@@ -28,8 +53,13 @@ public class ItemDAOImpl implements ItemDAO {
 
 	@Override
 	public List<Items> getItemByType(ItemType type) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Items> newList = new  ArrayList<>();
+		for (Items item : itemList) {
+			if(item.getType() == type) {
+				newList.add(item);
+			}
+		}
+		return newList;
 	}
 	
 	

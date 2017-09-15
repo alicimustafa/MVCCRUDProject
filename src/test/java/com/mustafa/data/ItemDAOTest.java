@@ -12,7 +12,6 @@ import org.junit.Test;
 public class ItemDAOTest {
 	
 	ItemDAOImpl dao;
-	List<Items> items;
 	Items[] ia = { new Items("sword", ItemType.MAIN_HAND),
 				new Items("axe", ItemType.MAIN_HAND),
 				new Items("spell book", ItemType.OFF_HAND),
@@ -25,7 +24,7 @@ public class ItemDAOTest {
 
 	@Before
 	public void setUp() throws Exception {
-		items = new ArrayList<>();
+		List<Items> items = new ArrayList<>();
 		for (Items item : ia) {
 			items.add(item);
 		}
@@ -35,7 +34,6 @@ public class ItemDAOTest {
 
 	@After
 	public void tearDown() throws Exception {
-		items = null;
 		dao = null;
 	}
 
@@ -48,7 +46,7 @@ public class ItemDAOTest {
 	}
 	@Test
 	public void test_getItemByType_return_off_hand() {
-		List<Items> off = dao.getItemByType(ItemType.MAIN_HAND);
+		List<Items> off = dao.getItemByType(ItemType.OFF_HAND);
 		assertEquals(2 , off.size());
 		assertTrue(off.get(0).equals(new Items("spell book", ItemType.OFF_HAND)));
 		assertTrue(off.get(1).equals(new Items("shield", ItemType.OFF_HAND)));
@@ -63,7 +61,7 @@ public class ItemDAOTest {
 	@Test
 	public void test_getItemByType_return_other() {
 		List<Items> main = dao.getItemByType(ItemType.OTHER);
-		assertEquals(2 , main.size());
+		assertEquals(3 , main.size());
 		assertTrue(main.get(0).equals(new Items("rope", ItemType.OTHER)));
 		assertTrue(main.get(1).equals(new Items("rations", ItemType.OTHER)));
 		assertTrue(main.get(2).equals(new Items("water bottle", ItemType.OTHER)));
