@@ -1,0 +1,19 @@
+Sword,MAIN_HAND
+Axe,MAIN_HAND
+Spear,MAIN_HAND
+Mace,MAIN_HAND
+Bow,MAIN_HAND
+Staff,MAIN_HAND
+Dagger,MAIN_HAND
+Shield,OFF_HAND
+Spell Book,OFF_HAND
+Holy symbol,OFF_HAND
+Gambeson,ARMOR
+Leather,ARMOR
+Chain MailARMOR
+Plate Mail,ARMOR
+Rope,OTHER
+Flint and Steel,OTHER
+Bedding,OTHER
+Dry Rations,OTHER
+Water Skin,OTHER

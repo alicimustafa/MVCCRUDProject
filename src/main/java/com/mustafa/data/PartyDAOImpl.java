@@ -1,5 +1,6 @@
 package com.mustafa.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,21 +12,52 @@ public class PartyDAOImpl implements PartyDAO {
 	@Autowired
 	ItemDAOImpl itemDAO;
 	
-	List<Character> poolList;
-	List<Character> partyList;
+	private List<Character> poolList;
+	private List<Character> partyList;
 	
-
-	@Override
-	public List<Character> getPartyMembers() {
-		// TODO Auto-generated method stub
-		return null;
+	public PartyDAOImpl() {
+		poolList = new ArrayList<>();
+		partyList = new ArrayList<>();
+		init();
+	}
+	
+	private void init() {
+		this.partyList.add(new Character("Gunther", ClassType.FIGHTHER));
+		this.partyList.add(new Character("Dormus", ClassType.ARCHER));
+		this.partyList.add(new Character("Loral", ClassType.CLERIC));
+		this.partyList.add(new Character("Lycia", ClassType.MAGE));
+		
+		this.poolList.add(new Character("Talafane", ClassType.ROGUE));
+		this.poolList.add(new Character("Fhaga", ClassType.MAGE));
+		this.poolList.add(new Character("Valcon", ClassType.FIGHTHER));
+		this.poolList.add(new Character("Thormund", ClassType.CLERIC));
+	}
+	
+	public ItemDAOImpl getItemDAO() {
+		return itemDAO;
 	}
 
-	@Override
-	public List<Character> getPoolMembers() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setItemDAO(ItemDAOImpl itemDAO) {
+		this.itemDAO = itemDAO;
 	}
+
+	public List<Character> getPoolList() {
+		return poolList;
+	}
+
+	public void setPoolList(List<Character> poolList) {
+		this.poolList = poolList;
+	}
+
+	public List<Character> getPartyList() {
+		return partyList;
+	}
+
+	public void setPartyList(List<Character> partyList) {
+		this.partyList = partyList;
+	}
+	
+	
 
 	@Override
 	public void save() {
@@ -34,33 +66,35 @@ public class PartyDAOImpl implements PartyDAO {
 	}
 
 	@Override
-	public void addTocharacterPool(int index) {
-		// TODO Auto-generated method stub
-		
+	public void addTocharacterPool(Character character) {
+		this.poolList.add(character);
 	}
 
 	@Override
 	public void moveCharacterToParty(int index) {
-		// TODO Auto-generated method stub
-		
+		Character moved = this.poolList.remove(index);
+		this.partyList.add(moved);
 	}
 
 	@Override
 	public void moveCharacterToPool(int index) {
-		// TODO Auto-generated method stub
-		
+		Character moved = this.partyList.remove(index);
+		this.poolList.add(moved);
 	}
 
 	@Override
 	public Character getCharacterFromParty(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		return partyList.get(index);
 	}
 
 	@Override
 	public Character getCharacterFromPool(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		return poolList.get(index);
+	}
+
+	@Override
+	public void deletCharacterFromPool(int index) {
+		this.poolList.remove(index);
 	}
 
 }
