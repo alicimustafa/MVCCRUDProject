@@ -39,10 +39,10 @@ public class ItemDAOImpl implements ItemDAO {
 //				String name = tokens[0];
 //				ItemType type = ItemType.valueOf(tokens[1]);
 //				itemList.add(new Items(name, type));
-//				System.out.println(line);
+//				//System.out.println(line);
 //			}
 //		} catch (Exception e) {
-//			e.printStackTrace();;
+//			e.printStackTrace();
 //		}
 		this.getItemList().add(new Items("sword", ItemType.MAIN_HAND));
 		this.getItemList().add(new Items("axe", ItemType.MAIN_HAND));
