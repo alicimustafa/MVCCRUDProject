@@ -1,21 +1,18 @@
-package com.mustafa.data;
+package com.mustafa.web;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import com.mustafa.data.Character;
+import com.mustafa.data.ClassType;
+import com.mustafa.data.PartyDAO;
 
-@Component
-public class PartyDAOImpl implements PartyDAO {
-	
-	@Autowired
-	ItemDAO itemDAO;
+public class MockPartyDAO implements PartyDAO {
 	
 	private List<Character> poolList;
 	private List<Character> partyList;
 	
-	public PartyDAOImpl() {
+	public MockPartyDAO() {
 		poolList = new ArrayList<>();
 		partyList = new ArrayList<>();
 		init();
@@ -33,36 +30,6 @@ public class PartyDAOImpl implements PartyDAO {
 		this.poolList.add(new Character("Thormund", ClassType.CLERIC));
 	}
 	
-	public ItemDAO getItemDAO() {
-		return itemDAO;
-	}
-
-	public void setItemDAO(ItemDAO itemDAO) {
-		this.itemDAO = itemDAO;
-	}
-	@Override
-	public List<Character> getPoolList() {
-		return poolList;
-	}
-	@Override
-	public void setPoolList(List<Character> poolList) {
-		this.poolList = poolList;
-	}
-	@Override
-	public List<Character> getPartyList() {
-		return partyList;
-	}
-	
-	@Override
-	public void setPartyList(List<Character> partyList) {
-		this.partyList = partyList;
-	}
-	
-	@Override
-	public void save() {
-
-	}
-
 	@Override
 	public void addTocharacterPool(Character character) {
 		this.poolList.add(character);
@@ -94,5 +61,32 @@ public class PartyDAOImpl implements PartyDAO {
 	public void deletCharacterFromPool(int index) {
 		this.poolList.remove(index);
 	}
+
+	@Override
+	public void save() {
+		// TODO Auto-generated me
+	}
+
+	@Override
+	public List<Character> getPoolList() {
+		return this.poolList;
+	}
+
+	@Override
+	public void setPoolList(List<Character> poolList) {
+		this.poolList = poolList;
+	}
+
+	@Override
+	public List<Character> getPartyList() {
+		return partyList;
+	}
+
+	@Override
+	public void setPartyList(List<Character> partyList) {
+		this.partyList = partyList;
+	}
+	
+	
 
 }

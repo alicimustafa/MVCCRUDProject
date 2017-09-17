@@ -7,18 +7,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mustafa.data.PartyDAOImpl;
+import com.mustafa.data.ItemDAO;
+import com.mustafa.data.PartyDAO;
 
 @Controller
 public class PartyPickerController {
 	
 	@Autowired
-	PartyDAOImpl partyDOA;
+	PartyDAO partyDAO;
+	@Autowired
+	ItemDAO itemDAO;
 	
 	@RequestMapping( path = "home.do" ,method = RequestMethod.GET)
 	public String displayeHome( Model model) {
-		model.addAttribute("party", partyDOA.getPartyList());
-		model.addAttribute("pool", partyDOA.getPoolList());
+		model.addAttribute("party", partyDAO.getPartyList());
+		model.addAttribute("pool", partyDAO.getPoolList());
 		return "home";
 	}
 	
@@ -26,7 +29,7 @@ public class PartyPickerController {
 				method = RequestMethod.POST, 
 				params = "remove")
 	public String moveToPool(@RequestParam("partyMember") int id, Model model) {
-		partyDOA.moveCharacterToPool(id);
+		partyDAO.moveCharacterToPool(id);
 		return "redirect:home.do";
 	}
 	
@@ -34,18 +37,30 @@ public class PartyPickerController {
 			method = RequestMethod.POST, 
 			params = "move")
 	public String moveToParty(@RequestParam("poolMember") int id, Model model) {
-		partyDOA.moveCharacterToParty(id);
+		partyDAO.moveCharacterToParty(id);
 		return "redirect:home.do";
 	}
 	@RequestMapping(path = "pool.do", 
 			method = RequestMethod.POST, 
 			params = "delete")
 	public String deleteFromPool(@RequestParam("poolMember") int id, Model model) {
-		partyDOA.deletCharacterFromPool(id);
+		partyDAO.deletCharacterFromPool(id);
 		return "redirect:home.do";
 	}
 		
-	
+	@RequestMapping(path= "createCharacter.do", method = RequestMethod.GET)
+	public String displayeCharacterPage() {
+		
+		return "character.jsp";
+	}
+
+	public PartyDAO getPartyDOA() {
+		return partyDAO;
+	}
+
+	public void setPartyDOA(PartyDAO partyDOA) {
+		this.partyDAO = partyDOA;
+	}
 	
 	
 

@@ -9,7 +9,7 @@
 <title>Character Edit</title>
 </head>
 <body>
-	<form:form action="stuff.do" method="POST" modelAttribute="user">
+	<form:form action="stuff.do" method="POST" modelAttribute="character">
 		<p>Name: <form:input path="email"/><form:errors path="email"/></p>
 		<p>Character Class: 
 			<select name="characterClass">
