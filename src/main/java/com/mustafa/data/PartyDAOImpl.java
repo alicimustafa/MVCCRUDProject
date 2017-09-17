@@ -1,19 +1,27 @@
 package com.mustafa.data;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 @Component
 public class PartyDAOImpl implements PartyDAO {
 	
-	@Autowired
-	ItemDAO itemDAO;
+	private static final String FILE = "/WEB-INF/CSVfiles/ItemList.csv";
+	private static final String POOL_FILE = "/WEB-INF/CSVfiles/PoolList.csv";
+	private static final String PARTY_FILE = "/WEB-INF/CSVfiles/PartyList.csv";
 	
-	private List<Character> poolList;
-	private List<Character> partyList;
+	@Autowired
+	private WebApplicationContext wac;
+	
+	private List<Adventurer> poolList;
+	private List<Adventurer> partyList;
 	
 	public PartyDAOImpl() {
 		poolList = new ArrayList<>();
@@ -22,39 +30,85 @@ public class PartyDAOImpl implements PartyDAO {
 	}
 	
 	private void init() {
-		this.partyList.add(new Character("Gunther", ClassType.FIGHTHER));
-		this.partyList.add(new Character("Dormus", ClassType.ARCHER));
-		this.partyList.add(new Character("Loral", ClassType.CLERIC));
-		this.partyList.add(new Character("Lycia", ClassType.MAGE));
+//		this.loadParty();
+//		this.loadPool();
+		this.partyList.add(new Adventurer("Gunther", ClassType.FIGHTHER));
+		this.partyList.add(new Adventurer("Dormus", ClassType.ARCHER));
+		this.partyList.add(new Adventurer("Loral", ClassType.CLERIC));
+		this.partyList.add(new Adventurer("Lycia", ClassType.MAGE));
 		
-		this.poolList.add(new Character("Talafane", ClassType.ROGUE));
-		this.poolList.add(new Character("Fhaga", ClassType.MAGE));
-		this.poolList.add(new Character("Valcon", ClassType.FIGHTHER));
-		this.poolList.add(new Character("Thormund", ClassType.CLERIC));
+		this.poolList.add(new Adventurer("Talafane", ClassType.ROGUE));
+		this.poolList.add(new Adventurer("Fhaga", ClassType.MAGE));
+		this.poolList.add(new Adventurer("Valcon", ClassType.FIGHTHER));
+		this.poolList.add(new Adventurer("Thormund", ClassType.CLERIC));
 	}
 	
-	public ItemDAO getItemDAO() {
-		return itemDAO;
-	}
+	private void loadParty() {
+		try (
+				InputStream is = wac.getServletContext().getResourceAsStream(PARTY_FILE);
+				BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+				) 
+		{
+			String line = "";
+			while ((line = buf.readLine()) != null) {
+				String[] tokens = line.split(",");
+				String name = tokens[0];
+				ClassType classType = ClassType.valueOf(tokens[1]);
+				Items mainHand = this.createItems(tokens[2]);
+				Items offHand = this.createItems(tokens[3]);
+				Items armor = this.createItems(tokens[4]);
+				partyList.add(new Adventurer(name, classType, mainHand, offHand, armor));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-	public void setItemDAO(ItemDAO itemDAO) {
-		this.itemDAO = itemDAO;
 	}
+	
+	private void loadPool() {
+		try (
+				InputStream is = wac.getServletContext().getResourceAsStream(POOL_FILE);
+				BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+				) 
+		{
+			String line = "";
+			while ((line = buf.readLine()) != null) {
+				String[] tokens = line.split(",");
+				String name = tokens[0];
+				ClassType classType = ClassType.valueOf(tokens[1]);
+				Items mainHand = this.createItems(tokens[2]);
+				Items offHand = this.createItems(tokens[3]);
+				Items armor = this.createItems(tokens[4]);
+				poolList.add(new Adventurer(name, classType, mainHand, offHand, armor));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private Items createItems(String data) {
+		if(data.equals("")) {
+			return null;
+		}
+		String[] part = data.split(":");
+		return new Items(part[0], ItemType.valueOf(part[1]));
+	}
+	
 	@Override
-	public List<Character> getPoolList() {
+	public List<Adventurer> getPoolList() {
 		return poolList;
 	}
 	@Override
-	public void setPoolList(List<Character> poolList) {
+	public void setPoolList(List<Adventurer> poolList) {
 		this.poolList = poolList;
 	}
 	@Override
-	public List<Character> getPartyList() {
+	public List<Adventurer> getPartyList() {
 		return partyList;
 	}
 	
 	@Override
-	public void setPartyList(List<Character> partyList) {
+	public void setPartyList(List<Adventurer> partyList) {
 		this.partyList = partyList;
 	}
 	
@@ -64,29 +118,29 @@ public class PartyDAOImpl implements PartyDAO {
 	}
 
 	@Override
-	public void addTocharacterPool(Character character) {
+	public void addTocharacterPool(Adventurer character) {
 		this.poolList.add(character);
 	}
 
 	@Override
 	public void moveCharacterToParty(int index) {
-		Character moved = this.poolList.remove(index);
+		Adventurer moved = this.poolList.remove(index);
 		this.partyList.add(moved);
 	}
 
 	@Override
 	public void moveCharacterToPool(int index) {
-		Character moved = this.partyList.remove(index);
+		Adventurer moved = this.partyList.remove(index);
 		this.poolList.add(moved);
 	}
 
 	@Override
-	public Character getCharacterFromParty(int index) {
+	public Adventurer getCharacterFromParty(int index) {
 		return partyList.get(index);
 	}
 
 	@Override
-	public Character getCharacterFromPool(int index) {
+	public Adventurer getCharacterFromPool(int index) {
 		return poolList.get(index);
 	}
 

@@ -54,4 +54,9 @@ public class Items {
 		return true;
 	}
 	
+	@Override
+	public String toString() {
+		return this.name;
+	}
+	
 }

@@ -3,7 +3,7 @@ package com.mustafa.data;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Character {
+public class Adventurer {
 	private String name;
 	private ClassType characterClass;
 	private Items mainHand;
@@ -11,7 +11,7 @@ public class Character {
 	private Items armor;
 	private List<Items> backpack;
 
-	public Character(String name, ClassType characterClass) {
+	public Adventurer(String name, ClassType characterClass) {
 		super();
 		this.name = name;
 		this.characterClass = characterClass;
@@ -19,6 +19,16 @@ public class Character {
 	}
 	
 	
+	public Adventurer(String name, ClassType characterClass, Items mainHand, Items offHand, Items armor) {
+		super();
+		this.name = name;
+		this.characterClass = characterClass;
+		this.mainHand = mainHand;
+		this.offHand = offHand;
+		this.armor = armor;
+	}
+
+
 	public void addItemToBackpack(Items item) {
 		this.backpack.add(item);
 	}
@@ -94,7 +104,7 @@ public class Character {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Character other = (Character) obj;
+		Adventurer other = (Adventurer) obj;
 		if (armor == null) {
 			if (other.armor != null)
 				return false;

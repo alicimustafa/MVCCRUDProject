@@ -3,14 +3,14 @@ package com.mustafa.web;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mustafa.data.Character;
+import com.mustafa.data.Adventurer;
 import com.mustafa.data.ClassType;
 import com.mustafa.data.PartyDAO;
 
 public class MockPartyDAO implements PartyDAO {
 	
-	private List<Character> poolList;
-	private List<Character> partyList;
+	private List<Adventurer> poolList;
+	private List<Adventurer> partyList;
 	
 	public MockPartyDAO() {
 		poolList = new ArrayList<>();
@@ -18,42 +18,42 @@ public class MockPartyDAO implements PartyDAO {
 		init();
 	}
 	
-	private void init() {
-		this.partyList.add(new Character("Gunther", ClassType.FIGHTHER));
-		this.partyList.add(new Character("Dormus", ClassType.ARCHER));
-		this.partyList.add(new Character("Loral", ClassType.CLERIC));
-		this.partyList.add(new Character("Lycia", ClassType.MAGE));
+	public void init() {
+		this.partyList.add(new Adventurer("Gunther", ClassType.FIGHTHER));
+		this.partyList.add(new Adventurer("Dormus", ClassType.ARCHER));
+		this.partyList.add(new Adventurer("Loral", ClassType.CLERIC));
+		this.partyList.add(new Adventurer("Lycia", ClassType.MAGE));
 		
-		this.poolList.add(new Character("Talafane", ClassType.ROGUE));
-		this.poolList.add(new Character("Fhaga", ClassType.MAGE));
-		this.poolList.add(new Character("Valcon", ClassType.FIGHTHER));
-		this.poolList.add(new Character("Thormund", ClassType.CLERIC));
+		this.poolList.add(new Adventurer("Talafane", ClassType.ROGUE));
+		this.poolList.add(new Adventurer("Fhaga", ClassType.MAGE));
+		this.poolList.add(new Adventurer("Valcon", ClassType.FIGHTHER));
+		this.poolList.add(new Adventurer("Thormund", ClassType.CLERIC));
 	}
 	
 	@Override
-	public void addTocharacterPool(Character character) {
+	public void addTocharacterPool(Adventurer character) {
 		this.poolList.add(character);
 	}
 
 	@Override
 	public void moveCharacterToParty(int index) {
-		Character moved = this.poolList.remove(index);
+		Adventurer moved = this.poolList.remove(index);
 		this.partyList.add(moved);
 	}
 
 	@Override
 	public void moveCharacterToPool(int index) {
-		Character moved = this.partyList.remove(index);
+		Adventurer moved = this.partyList.remove(index);
 		this.poolList.add(moved);
 	}
 
 	@Override
-	public Character getCharacterFromParty(int index) {
+	public Adventurer getCharacterFromParty(int index) {
 		return partyList.get(index);
 	}
 
 	@Override
-	public Character getCharacterFromPool(int index) {
+	public Adventurer getCharacterFromPool(int index) {
 		return poolList.get(index);
 	}
 
@@ -68,22 +68,22 @@ public class MockPartyDAO implements PartyDAO {
 	}
 
 	@Override
-	public List<Character> getPoolList() {
+	public List<Adventurer> getPoolList() {
 		return this.poolList;
 	}
 
 	@Override
-	public void setPoolList(List<Character> poolList) {
+	public void setPoolList(List<Adventurer> poolList) {
 		this.poolList = poolList;
 	}
 
 	@Override
-	public List<Character> getPartyList() {
+	public List<Adventurer> getPartyList() {
 		return partyList;
 	}
 
 	@Override
-	public void setPartyList(List<Character> partyList) {
+	public void setPartyList(List<Adventurer> partyList) {
 		this.partyList = partyList;
 	}
 	

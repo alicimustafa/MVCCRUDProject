@@ -28,37 +28,27 @@ public class ItemDAOImpl implements ItemDAO {
 
 	@PostConstruct
 	private void init() {
-//		try (
-//				InputStream is = wac.getServletContext().getResourceAsStream(FILE);
-//				BufferedReader buf = new BufferedReader(new InputStreamReader(is));
-//				) 
-//		{
-//			String line = buf.readLine();
-//			while ((line = buf.readLine()) != null) {
-//				String[] tokens = line.split(",");
-//				String name = tokens[0];
-//				ItemType type = ItemType.valueOf(tokens[1]);
-//				itemList.add(new Items(name, type));
-//				//System.out.println(line);
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-		this.getItemList().add(new Items("sword", ItemType.MAIN_HAND));
-		this.getItemList().add(new Items("axe", ItemType.MAIN_HAND));
-		this.getItemList().add(new Items("spell book", ItemType.OFF_HAND));
-		this.getItemList().add(new Items("shield", ItemType.OFF_HAND));
-		this.getItemList().add(new Items("plate", ItemType.ARMOR));
-		this.getItemList().add(new Items("gambison", ItemType.ARMOR));
-		this.getItemList().add(new Items("rope", ItemType.OTHER));
-		this.getItemList().add(new Items("rations", ItemType.OTHER));
-		this.getItemList().add(new Items("water bottle", ItemType.OTHER));
+		try (
+				InputStream is = wac.getServletContext().getResourceAsStream(FILE);
+				BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+				) 
+		{
+			String line = "";
+			while ((line = buf.readLine()) != null) {
+				String[] tokens = line.split(",");
+				String name = tokens[0];
+				ItemType type = ItemType.valueOf(tokens[1]);
+				itemList.add(new Items(name, type));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-
+	@Override
 	public List<Items> getItemList() {
 		return itemList;
 	}
-
+	@Override
 	public void setItemList(List<Items> itemList) {
 		this.itemList = itemList;
 	}
