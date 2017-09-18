@@ -1,0 +1,45 @@
+body {
+  background-color: #cc3300; }
+
+#wrap {
+  background-image: url(images/stone.jpg);
+  width: 1000px;
+  height: 1000px;
+  margin: 10px auto; }
+
+#top-section {
+  margin: 10px auto;
+  width: 900px;
+  z-index: 1; }
+  #top-section img {
+    margin: 50px; }
+
+#main-section {
+  margin: 10px auto;
+  width: 900px;
+  text-align: center;
+  z-index: 1; }
+  #main-section table {
+    border-collapse: collapse;
+    margin: 10px auto;
+    background-color: #fff; }
+  #main-section td, #main-section th {
+    border: 1px solid #000; }
+
+.sub-sections {
+  width: 450px;
+  height: 350px;
+  scroll-behavior: auto;
+  float: left;
+  background-color: #ffcc66; }
+
+#form-section {
+  margin: 0 auto;
+  float: none;
+  border: 3px groove #000; }
+  #form-section form {
+    border: 1px solid #000;
+    background-color: #fff;
+    margin: 10px; }
+
+/*# sourceMappingURL=master.css.map */

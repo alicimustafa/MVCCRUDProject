@@ -11,7 +11,7 @@
 <body>
 	<div id="wrap">
 		<div id="top-section" class="">
-			<img src="adventuringParty.jpg" alt="adventurers">
+			<img src="images/adventuringParty.jpg" alt="adventurers">
 		</div>
 		<div id="main-section" class="">
 			<div id="party-section" class="sub-sections">
