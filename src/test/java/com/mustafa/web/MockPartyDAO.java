@@ -19,6 +19,8 @@ public class MockPartyDAO implements PartyDAO {
 	}
 	
 	public void init() {
+		this.partyList = new ArrayList<>();
+		this.poolList = new ArrayList<>();
 		this.partyList.add(new Adventurer("Gunther", ClassType.FIGHTHER));
 		this.partyList.add(new Adventurer("Dormus", ClassType.ARCHER));
 		this.partyList.add(new Adventurer("Loral", ClassType.CLERIC));

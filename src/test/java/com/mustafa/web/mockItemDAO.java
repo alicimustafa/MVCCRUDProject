@@ -7,16 +7,17 @@ import com.mustafa.data.ItemDAO;
 import com.mustafa.data.ItemType;
 import com.mustafa.data.Items;
 
+
 public class MockItemDAO implements ItemDAO{
 	
 	private List<Items> itemList;
 	
 	public MockItemDAO() {
-		itemList = new ArrayList<>();
 		this.init();
 	}
 	
 	public void init() {
+		this.itemList = new ArrayList<>();
 		this.itemList.add(new Items("sword", ItemType.MAIN_HAND));
 		this.itemList.add(new Items("axe", ItemType.MAIN_HAND));
 		this.itemList.add(new Items("spell book", ItemType.OFF_HAND));
