@@ -27,7 +27,9 @@
 					<tbody>
 					<c:forEach var="party" items="${party}" varStatus="loop">
 						<tr>
-						<td>${party.name}</td>
+						<td><a href="updateCharacter.do?id=${loop.index}&table=party">
+						${party.name}
+						</a></td>
 						<td>${party.characterClass}</td>
 						<td><form class="" action="party.do" method="post">
 								<input type="hidden" name="partyMember" value="${loop.index }"> 
@@ -53,7 +55,9 @@
 					<tbody>
 						<c:forEach var="pool" items="${pool}" varStatus="loop">
 						<tr>
-						<td>${pool.name}</td>
+						<td><a href="updateCharacter.do?id=${loop.index}&table=pool">
+						${pool.name}
+						</a></td>
 						<td>${pool.characterClass}</td>
 						<td><form class="" action="pool.do" method="post">
 								<input type="hidden" name="poolMember" value="${loop.index }"> 

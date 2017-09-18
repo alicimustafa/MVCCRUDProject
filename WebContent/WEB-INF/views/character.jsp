@@ -10,7 +10,9 @@
 </head>
 <body>
 <form action="character.do" method="POST">
-	<p>Name:<input type="text" name="name" /></p>
+	<p>Name:<input type="text" name="name" value="${name}" /></p>
+	<input type="hidden" name="id" value="${id}">
+	<input type="hidden" name="table" value="${table}">
 	<p>Class:<form:select path="classType" name="classType">
 		<form:options items="${classType}" />
 	</form:select></p>

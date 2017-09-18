@@ -6,6 +6,22 @@ public class Input {
 	private String mainHand;
 	private String offHand;
 	private String armor;
+	private int id;
+	private String table;
+	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getTable() {
+		return table;
+	}
+	public void setTable(String table) {
+		this.table = table;
+	}
 	public String getName() {
 		return name;
 	}
