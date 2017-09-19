@@ -126,7 +126,6 @@ public class PartyPickerControllerTest {
 			ModelAndView mv = result.getModelAndView();
 			assertEquals("character", mv.getViewName());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail(e.toString());
 		}
@@ -142,7 +141,6 @@ public class PartyPickerControllerTest {
 			ModelAndView mv = result.getModelAndView();
 			assertEquals("character", mv.getViewName());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail(e.toString());
 		}
@@ -151,20 +149,21 @@ public class PartyPickerControllerTest {
 	@Test
 	public void test_createCharacter_add_character_to_pool_and_redirects_home() {
 		try {
-			MvcResult result = mockMvc.perform(post("character.do")
+			MvcResult result = mockMvc.perform(post("/character.do")
 						.param("name", "billy")
 						.param("classType", "MAGE")
 						.param("mainHand", "sword")
 						.param("offHand", "shield")
 						.param("armor", "leather")
 						.param("id", "0")
-						.param("table", "pool"))
+						.param("table", "pool")
+						.param("Create", "create"))
 					.andExpect(status().is3xxRedirection()).andReturn();
 			ModelAndView mv = result.getModelAndView();
-			assertEquals("redirect:home.do", mv.getView());
+			assertEquals("redirect:home.do", mv.getViewName());
 			assertEquals(5 , partyDAO.getPoolList().size());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			fail(e.toString());
 			e.printStackTrace();
 		}
 	}
