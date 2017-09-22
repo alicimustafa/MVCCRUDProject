@@ -16,7 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
 @Component
 public class ItemDAOImpl implements ItemDAO {
 
-	List<Items> itemList;
+	List<Item> itemList;
 	private static final String FILE = "/WEB-INF/CSVfiles/ItemList.csv";
 	@Autowired
 	private WebApplicationContext wac;
@@ -38,25 +38,25 @@ public class ItemDAOImpl implements ItemDAO {
 				String[] tokens = line.split(",");
 				String name = tokens[0];
 				ItemType type = ItemType.valueOf(tokens[1]);
-				itemList.add(new Items(name, type));
+				itemList.add(new Item(name, type));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	@Override
-	public List<Items> getItemList() {
+	public List<Item> getItemList() {
 		return itemList;
 	}
 	@Override
-	public void setItemList(List<Items> itemList) {
+	public void setItemList(List<Item> itemList) {
 		this.itemList = itemList;
 	}
 
 	@Override
-	public List<Items> getItemByType(ItemType type) {
-		List<Items> newList = new ArrayList<>();
-		for (Items item : itemList) {
+	public List<Item> getItemByType(ItemType type) {
+		List<Item> newList = new ArrayList<>();
+		for (Item item : itemList) {
 			if (item.getType() == type) {
 				newList.add(item);
 			}

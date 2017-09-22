@@ -33,7 +33,7 @@ public class PartyPickerControllerTest {
 	WebApplicationContext wc; 
 
 	MockPartyDAO partyDAO;
-	MockItemDAO itemDAO;
+	//MockItemDAO itemDAO;
 	
 	@Autowired
 	PartyPickerController ppc;

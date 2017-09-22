@@ -5,11 +5,11 @@ import java.util.List;
 
 import com.mustafa.data.ItemDAO;
 import com.mustafa.data.ItemType;
-import com.mustafa.data.Items;
+import com.mustafa.data.Item;
 
 public class MockItemDAO implements ItemDAO{
 	
-	private List<Items> itemList;
+	private List<Item> itemList;
 	
 	public MockItemDAO() {
 		this.init();
@@ -17,22 +17,22 @@ public class MockItemDAO implements ItemDAO{
 	
 	public void init() {
 		this.itemList = new ArrayList<>();
-		this.itemList.add(new Items("sword", ItemType.MAIN_HAND));
-		this.itemList.add(new Items("axe", ItemType.MAIN_HAND));
-		this.itemList.add(new Items("spell book", ItemType.OFF_HAND));
-		this.itemList.add(new Items("shield", ItemType.OFF_HAND));
-		this.itemList.add(new Items("plate", ItemType.ARMOR));
-		this.itemList.add(new Items("gambison", ItemType.ARMOR));
-		this.itemList.add(new Items("rope", ItemType.OTHER));
-		this.itemList.add(new Items("rations", ItemType.OTHER));
-		this.itemList.add(new Items("water bottle", ItemType.OTHER));
+		this.itemList.add(new Item("sword", ItemType.MAIN_HAND));
+		this.itemList.add(new Item("axe", ItemType.MAIN_HAND));
+		this.itemList.add(new Item("spell book", ItemType.OFF_HAND));
+		this.itemList.add(new Item("shield", ItemType.OFF_HAND));
+		this.itemList.add(new Item("plate", ItemType.ARMOR));
+		this.itemList.add(new Item("gambison", ItemType.ARMOR));
+		this.itemList.add(new Item("rope", ItemType.OTHER));
+		this.itemList.add(new Item("rations", ItemType.OTHER));
+		this.itemList.add(new Item("water bottle", ItemType.OTHER));
 
 	}
 
 	@Override
-	public List<Items> getItemByType(ItemType type) {
-		List<Items> newList = new ArrayList<>();
-		for (Items item : itemList) {
+	public List<Item> getItemByType(ItemType type) {
+		List<Item> newList = new ArrayList<>();
+		for (Item item : itemList) {
 			if (item.getType() == type) {
 				newList.add(item);
 			}
@@ -40,11 +40,11 @@ public class MockItemDAO implements ItemDAO{
 		return newList;
 	}
 
-	public List<Items> getItemList() {
+	public List<Item> getItemList() {
 		return itemList;
 	}
 
-	public void setItemList(List<Items> itemList) {
+	public void setItemList(List<Item> itemList) {
 		this.itemList = itemList;
 	}
 	

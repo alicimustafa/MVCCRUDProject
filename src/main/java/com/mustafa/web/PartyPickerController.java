@@ -15,7 +15,7 @@ import com.mustafa.data.ClassType;
 import com.mustafa.data.Input;
 import com.mustafa.data.ItemDAO;
 import com.mustafa.data.ItemType;
-import com.mustafa.data.Items;
+import com.mustafa.data.Item;
 import com.mustafa.data.PartyDAO;
 
 @Controller
@@ -60,6 +60,7 @@ public class PartyPickerController {
 	public String displayCharacterPageCreate(Model model) {
 		model.addAttribute("id", "0");
 		model.addAttribute("table", "pool");
+		model.addAttribute("name", "");
 		model.addAttribute("mainHand", itemDAO.getItemByType(ItemType.MAIN_HAND));
 		model.addAttribute("offHand", itemDAO.getItemByType(ItemType.OFF_HAND));
 		model.addAttribute("armor", itemDAO.getItemByType(ItemType.ARMOR));
@@ -94,9 +95,9 @@ public class PartyPickerController {
 	public String createCharacter(Input input) {
 		String name = input.getName();
 		ClassType classType = ClassType.valueOf(input.getClassType());
-		Items mainHand = new Items(input.getMainHand(), ItemType.MAIN_HAND);
-		Items offHand = new Items(input.getOffHand(), ItemType.OFF_HAND);
-		Items armor = new Items(input.getArmor(), ItemType.ARMOR);
+		Item mainHand = new Item(input.getMainHand(), ItemType.MAIN_HAND);
+		Item offHand = new Item(input.getOffHand(), ItemType.OFF_HAND);
+		Item armor = new Item(input.getArmor(), ItemType.ARMOR);
 		Adventurer ad = new Adventurer(name, classType, mainHand, offHand, armor);
 		this.partyDAO.addTocharacterPool(ad);
 		return "redirect:home.do";
@@ -108,9 +109,9 @@ public class PartyPickerController {
 	public String updateCharacter(Input input) {
 		String name = input.getName();
 		ClassType classType = ClassType.valueOf(input.getClassType());
-		Items mainHand = new Items(input.getMainHand(), ItemType.MAIN_HAND);
-		Items offHand = new Items(input.getOffHand(), ItemType.OFF_HAND);
-		Items armor = new Items(input.getArmor(), ItemType.ARMOR);
+		Item mainHand = new Item(input.getMainHand(), ItemType.MAIN_HAND);
+		Item offHand = new Item(input.getOffHand(), ItemType.OFF_HAND);
+		Item armor = new Item(input.getArmor(), ItemType.ARMOR);
 		Adventurer ad = new Adventurer(name, classType, mainHand, offHand, armor);
 		if(input.getTable().equals("party")) {
 			this.partyDAO.getPartyList().set(input.getId(), ad);

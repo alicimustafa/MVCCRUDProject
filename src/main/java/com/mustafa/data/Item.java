@@ -1,10 +1,10 @@
 package com.mustafa.data;
 
-public class Items {
+public class Item {
 	private String name;
 	private ItemType type;
 
-	public Items(String name, ItemType type) {
+	public Item(String name, ItemType type) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -43,7 +43,7 @@ public class Items {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Items other = (Items) obj;
+		Item other = (Item) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;

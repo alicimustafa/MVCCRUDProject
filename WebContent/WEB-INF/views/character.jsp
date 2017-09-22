@@ -27,6 +27,11 @@
 						<form:select path="classType" name="classType">
 							<form:options items="${classType}" />
 						</form:select>
+						<select name="classType">
+							<c:forEach var="cls" items ="${classType}">
+								<option val="${cls}">${cls}</option>
+						    </c:forEach>
+						</select>
 					</p>
 					<p>
 						Main Hand:

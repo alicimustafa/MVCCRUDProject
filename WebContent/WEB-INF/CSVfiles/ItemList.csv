@@ -1,19 +1,20 @@
-Sword,MAIN_HAND
-Axe,MAIN_HAND
-Spear,MAIN_HAND
-Mace,MAIN_HAND
-Bow,MAIN_HAND
-Staff,MAIN_HAND
-Dagger,MAIN_HAND
-Shield,OFF_HAND
-Spell Book,OFF_HAND
-Holy symbol,OFF_HAND
-Gambeson,ARMOR
-Leather,ARMOR
-Chain Mail,ARMOR
-Plate Mail,ARMOR
-Rope,OTHER
-Flint and Steel,OTHER
-Bedding,OTHER
-Dry Rations,OTHER
-Water Skin,OTHER
+1,Sword,1
+2,Axe,1
+3,Spear,1
+4,Mace,1
+5,Bow,1
+6,Staff,1
+7,Dagger,1
+8,Shield,2
+9,Spell Book,2
+10,Holy symbol,2
+11,Gambeson,3
+12,Leather,3
+13,Chain Mail,3
+14,Plate Mail,3
+15,Rope,4
+16,Flint and Steel,4
+17,Bedding,4
+18,Dry Rations,4
+19,Water Skin,4
+20,Dagger,2

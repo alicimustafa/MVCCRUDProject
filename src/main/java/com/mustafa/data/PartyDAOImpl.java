@@ -54,9 +54,9 @@ public class PartyDAOImpl implements PartyDAO {
 				String[] tokens = line.split(",");
 				String name = tokens[0];
 				ClassType classType = ClassType.valueOf(tokens[1]);
-				Items mainHand = this.createItems(tokens[2]);
-				Items offHand = this.createItems(tokens[3]);
-				Items armor = this.createItems(tokens[4]);
+				Item mainHand = this.createItems(tokens[2]);
+				Item offHand = this.createItems(tokens[3]);
+				Item armor = this.createItems(tokens[4]);
 				partyList.add(new Adventurer(name, classType, mainHand, offHand, armor));
 			}
 		} catch (Exception e) {
@@ -76,9 +76,9 @@ public class PartyDAOImpl implements PartyDAO {
 				String[] tokens = line.split(",");
 				String name = tokens[0];
 				ClassType classType = ClassType.valueOf(tokens[1]);
-				Items mainHand = this.createItems(tokens[2]);
-				Items offHand = this.createItems(tokens[3]);
-				Items armor = this.createItems(tokens[4]);
+				Item mainHand = this.createItems(tokens[2]);
+				Item offHand = this.createItems(tokens[3]);
+				Item armor = this.createItems(tokens[4]);
 				poolList.add(new Adventurer(name, classType, mainHand, offHand, armor));
 			}
 		} catch (Exception e) {
@@ -86,12 +86,12 @@ public class PartyDAOImpl implements PartyDAO {
 		}
 	}
 	
-	private Items createItems(String data) {
+	private Item createItems(String data) {
 		if(data.equals("")) {
 			return null;
 		}
 		String[] part = data.split(":");
-		return new Items(part[0], ItemType.valueOf(part[1]));
+		return new Item(part[0], ItemType.valueOf(part[1]));
 	}
 	
 	@Override

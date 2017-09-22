@@ -6,10 +6,10 @@ import java.util.List;
 public class Adventurer {
 	private String name;
 	private ClassType characterClass;
-	private Items mainHand;
-	private Items offHand;
-	private Items armor;
-	private List<Items> backpack;
+	private Item mainHand;
+	private Item offHand;
+	private Item armor;
+	private List<Item> backpack;
 
 	public Adventurer(String name, ClassType characterClass) {
 		super();
@@ -19,7 +19,7 @@ public class Adventurer {
 	}
 	
 	
-	public Adventurer(String name, ClassType characterClass, Items mainHand, Items offHand, Items armor) {
+	public Adventurer(String name, ClassType characterClass, Item mainHand, Item offHand, Item armor) {
 		super();
 		this.name = name;
 		this.characterClass = characterClass;
@@ -29,7 +29,7 @@ public class Adventurer {
 	}
 
 
-	public void addItemToBackpack(Items item) {
+	public void addItemToBackpack(Item item) {
 		this.backpack.add(item);
 	}
 
@@ -49,35 +49,35 @@ public class Adventurer {
 		this.characterClass = characterClass;
 	}
 
-	public Items getMainHand() {
+	public Item getMainHand() {
 		return mainHand;
 	}
 
-	public void setMainHand(Items mainHand) {
+	public void setMainHand(Item mainHand) {
 		this.mainHand = mainHand;
 	}
 
-	public Items getOffHand() {
+	public Item getOffHand() {
 		return offHand;
 	}
 
-	public void setOffHand(Items offHand) {
+	public void setOffHand(Item offHand) {
 		this.offHand = offHand;
 	}
 
-	public Items getArmor() {
+	public Item getArmor() {
 		return armor;
 	}
 
-	public void setArmor(Items armor) {
+	public void setArmor(Item armor) {
 		this.armor = armor;
 	}
 
-	public List<Items> getBackpack() {
+	public List<Item> getBackpack() {
 		return backpack;
 	}
 
-	public void setBackpack(List<Items> backpack) {
+	public void setBackpack(List<Item> backpack) {
 		this.backpack = backpack;
 	}
 
