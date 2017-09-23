@@ -45,7 +45,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `items` ;
 
 CREATE TABLE IF NOT EXISTS `items` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `type` INT UNSIGNED NULL,
   PRIMARY KEY (`id`),
@@ -64,35 +64,23 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `adventurer` ;
 
 CREATE TABLE IF NOT EXISTS `adventurer` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `class_type` INT UNSIGNED NULL,
   `main_hand` INT UNSIGNED NULL,
   `off_hand` INT UNSIGNED NULL,
   `armor` INT UNSIGNED NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_adventurere_main_hand_idx` (`main_hand` ASC),
+  INDEX `fk_adventurere_main_hand_idx` (`main_hand` ASC, `off_hand` ASC, `armor` ASC),
   INDEX `fk_addventurer_class_type_idx` (`class_type` ASC),
-  INDEX `fk__idx` (`off_hand` ASC),
-  INDEX `fk_adventurer_item_armor_idx` (`armor` ASC),
   CONSTRAINT `fk_adventurer_item`
-    FOREIGN KEY (`main_hand`)
-    REFERENCES `items` (`id`)
+    FOREIGN KEY (`main_hand` , `off_hand` , `armor`)
+    REFERENCES `items` (`id` , `id` , `id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_adventurer_class_type`
     FOREIGN KEY (`class_type`)
     REFERENCES `class_type` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_adventurer_item_off`
-    FOREIGN KEY (`off_hand`)
-    REFERENCES `items` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_adventurer_item_armor`
-    FOREIGN KEY (`armor`)
-    REFERENCES `items` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -104,7 +92,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `backpack` ;
 
 CREATE TABLE IF NOT EXISTS `backpack` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `item_id` INT UNSIGNED NULL,
   `addventurer_id` INT UNSIGNED NULL,
   INDEX `fk_bakcpack_adventurer_idx` (`addventurer_id` ASC),
@@ -146,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `adventurer_group` (
   INDEX `fk_adventurer_group_group_idx` (`group_id` ASC),
   CONSTRAINT `fk_adventurer_group_adventurer`
     FOREIGN KEY (`adventurer_id`)
-    REFERENCES `adventurer` (`id`)
+    REFERENCES `adventurer` (`class_type`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_adventurer_group_group`
@@ -231,12 +219,12 @@ COMMIT;
 START TRANSACTION;
 USE `partydb`;
 INSERT INTO `adventurer` (`id`, `name`, `class_type`, `main_hand`, `off_hand`, `armor`) VALUES (1, 'Gunther', 3, 2, 8, 13);
-INSERT INTO `adventurer` (`id`, `name`, `class_type`, `main_hand`, `off_hand`, `armor`) VALUES (2, 'Lycia', 1, 6, 9, 21);
+INSERT INTO `adventurer` (`id`, `name`, `class_type`, `main_hand`, `off_hand`, `armor`) VALUES (2, 'Lycia', 1, 6, 9, 23);
 INSERT INTO `adventurer` (`id`, `name`, `class_type`, `main_hand`, `off_hand`, `armor`) VALUES (3, 'Dormus', 2, 5, 20, 11);
 INSERT INTO `adventurer` (`id`, `name`, `class_type`, `main_hand`, `off_hand`, `armor`) VALUES (4, 'Talafane', 4, 7, 20, 12);
 INSERT INTO `adventurer` (`id`, `name`, `class_type`, `main_hand`, `off_hand`, `armor`) VALUES (5, 'Loral', 5, 4, 10, 13);
 INSERT INTO `adventurer` (`id`, `name`, `class_type`, `main_hand`, `off_hand`, `armor`) VALUES (6, 'Valcon', 3, 1, 8, 14);
-INSERT INTO `adventurer` (`id`, `name`, `class_type`, `main_hand`, `off_hand`, `armor`) VALUES (7, 'Fhaga', 1, 6, 9, 21);
+INSERT INTO `adventurer` (`id`, `name`, `class_type`, `main_hand`, `off_hand`, `armor`) VALUES (7, 'Fhaga', 1, 6, 9, 23);
 INSERT INTO `adventurer` (`id`, `name`, `class_type`, `main_hand`, `off_hand`, `armor`) VALUES (8, 'Marris', 2, 5, 20, 12);
 INSERT INTO `adventurer` (`id`, `name`, `class_type`, `main_hand`, `off_hand`, `armor`) VALUES (9, 'Bairel', 4, 7, 20, 11);
 INSERT INTO `adventurer` (`id`, `name`, `class_type`, `main_hand`, `off_hand`, `armor`) VALUES (10, 'Thormund', 5, 1, 10, 14);
