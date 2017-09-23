@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.mustafa.model.Adventurer;
+import com.mustafa.model.Item;
+
 @Component
 public class PartyDAOImpl implements PartyDAO {
 	

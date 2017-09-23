@@ -1,13 +1,26 @@
-package com.mustafa.data;
+package com.mustafa.model;
 
 public class Item {
+	private int id;
 	private String name;
-	private ItemType type;
+	private String type;
 
-	public Item(String name, ItemType type) {
+	public Item() {
+	}
+
+	public Item(int id, String name, String type) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.type = type;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -18,11 +31,11 @@ public class Item {
 		this.name = name;
 	}
 
-	public ItemType getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(ItemType type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
@@ -30,8 +43,7 @@ public class Item {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + id;
 		return result;
 	}
 
@@ -44,19 +56,8 @@ public class Item {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (type != other.type)
+		if (id != other.id)
 			return false;
 		return true;
 	}
-	
-	@Override
-	public String toString() {
-		return this.name;
-	}
-	
 }

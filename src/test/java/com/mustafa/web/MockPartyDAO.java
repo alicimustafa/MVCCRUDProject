@@ -3,9 +3,9 @@ package com.mustafa.web;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mustafa.data.Adventurer;
 import com.mustafa.data.ClassType;
 import com.mustafa.data.PartyDAO;
+import com.mustafa.model.Adventurer;
 
 public class MockPartyDAO implements PartyDAO {
 	

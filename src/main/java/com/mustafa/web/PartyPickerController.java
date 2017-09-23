@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mustafa.data.Adventurer;
 import com.mustafa.data.ClassType;
-import com.mustafa.data.Input;
 import com.mustafa.data.ItemDAO;
 import com.mustafa.data.ItemType;
-import com.mustafa.data.Item;
 import com.mustafa.data.PartyDAO;
+import com.mustafa.model.Adventurer;
+import com.mustafa.model.Input;
+import com.mustafa.model.Item;
 
 @Controller
 public class PartyPickerController {
@@ -60,7 +60,6 @@ public class PartyPickerController {
 	public String displayCharacterPageCreate(Model model) {
 		model.addAttribute("id", "0");
 		model.addAttribute("table", "pool");
-		model.addAttribute("name", "");
 		model.addAttribute("mainHand", itemDAO.getItemByType(ItemType.MAIN_HAND));
 		model.addAttribute("offHand", itemDAO.getItemByType(ItemType.OFF_HAND));
 		model.addAttribute("armor", itemDAO.getItemByType(ItemType.ARMOR));

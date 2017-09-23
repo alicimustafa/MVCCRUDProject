@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.mustafa.data.ItemDAO;
 import com.mustafa.data.ItemType;
-import com.mustafa.data.Item;
+import com.mustafa.model.Item;
 
 public class MockItemDAO implements ItemDAO{
 	

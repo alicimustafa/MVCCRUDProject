@@ -2,6 +2,8 @@ package com.mustafa.data;
 
 import java.util.List;
 
+import com.mustafa.model.Adventurer;
+
 public interface PartyDAO {
 	public void addTocharacterPool(Adventurer character);
 	public void moveCharacterToParty(int index);

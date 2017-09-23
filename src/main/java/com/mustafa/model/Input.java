@@ -1,4 +1,4 @@
-package com.mustafa.data;
+package com.mustafa.model;
 
 public class Input {
 	private String name;
