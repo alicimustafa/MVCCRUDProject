@@ -18,15 +18,15 @@ public class PartyDAOTest {
 		partyDAO = new PartyDAOImpl();
 		partyDAO.getPartyList().clear();
 		partyDAO.getPoolList().clear();
-		partyDAO.getPartyList().add(new Adventurer("a", ClassType.FIGHTHER));
-		partyDAO.getPartyList().add(new Adventurer("b", ClassType.ARCHER));
-		partyDAO.getPartyList().add(new Adventurer("c", ClassType.CLERIC));
-		partyDAO.getPartyList().add(new Adventurer("d", ClassType.MAGE));
+		partyDAO.getPartyList().add(new Adventurer(1,"a", "FIGHTHER"));
+		partyDAO.getPartyList().add(new Adventurer(2,"b", "ARCHER"));
+		partyDAO.getPartyList().add(new Adventurer(3,"c", "CLERIC"));
+		partyDAO.getPartyList().add(new Adventurer(4,"d", "MAGE"));
 		
-		partyDAO.getPoolList().add(new Adventurer("z", ClassType.ROGUE));
-		partyDAO.getPoolList().add(new Adventurer("y", ClassType.MAGE));
-		partyDAO.getPoolList().add(new Adventurer("x", ClassType.FIGHTHER));
-		partyDAO.getPoolList().add(new Adventurer("w", ClassType.CLERIC));
+		partyDAO.getPoolList().add(new Adventurer(10,"z", "ROGUE"));
+		partyDAO.getPoolList().add(new Adventurer(11,"y", "MAGE"));
+		partyDAO.getPoolList().add(new Adventurer(12,"x", "FIGHTHER"));
+		partyDAO.getPoolList().add(new Adventurer(13,"w", "CLERIC"));
 	}
 
 	@After
@@ -36,7 +36,7 @@ public class PartyDAOTest {
 
 	@Test
 	public void test_addTocharacterPool_to_se_if_character_added() {
-		Adventurer ch = new Adventurer("bob", ClassType.ARCHER);
+		Adventurer ch = new Adventurer(5,"bob", "ARCHER");
 		int size = partyDAO.getPoolList().size();
 		partyDAO.addTocharacterPool(ch);
 		assertEquals(size + 1, partyDAO.getPoolList().size());
@@ -68,21 +68,21 @@ public class PartyDAOTest {
 	
 	@Test
 	public void test_getCharacterFromParty_returns_correct_character() {
-		assertTrue(partyDAO.getCharacterFromParty(0).equals(new Adventurer("a", ClassType.FIGHTHER)));
-		assertTrue(partyDAO.getCharacterFromParty(3).equals(new Adventurer("d", ClassType.MAGE)));
+		assertTrue(partyDAO.getCharacterFromParty(0).equals(new Adventurer(1,"a", "FIGHTHER")));
+		assertTrue(partyDAO.getCharacterFromParty(3).equals(new Adventurer(4,"d", "MAGE")));
 	}
 	
 	@Test
 	public void test_getCharacterFromPool_returns_correct_character() {
-		assertTrue(partyDAO.getCharacterFromPool(0).equals(new Adventurer("z", ClassType.ROGUE)));
-		assertTrue(partyDAO.getCharacterFromPool(3).equals(new Adventurer("w", ClassType.CLERIC)));
+		assertTrue(partyDAO.getCharacterFromPool(0).equals(new Adventurer(10,"z", "ROGUE")));
+		assertTrue(partyDAO.getCharacterFromPool(3).equals(new Adventurer(13,"w", "CLERIC")));
 	}
 	
 	@Test
 	public void test_deletCharacterFromPool_delets_character_from_pool() {
 		partyDAO.deletCharacterFromPool(0);
 		assertEquals(3 , partyDAO.getPoolList().size());
-		assertTrue(partyDAO.getPoolList().get(0).equals(new Adventurer("y", ClassType.MAGE)));
+		assertTrue(partyDAO.getPoolList().get(0).equals(new Adventurer(11,"y", "MAGE")));
 	}
 
 }

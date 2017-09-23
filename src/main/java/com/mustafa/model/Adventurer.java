@@ -112,5 +112,26 @@ public class Adventurer {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Adventurer [id=");
+		builder.append(id);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", characterClass=");
+		builder.append(characterClass);
+		builder.append(", mainHand=");
+		builder.append(mainHand);
+		builder.append(", offHand=");
+		builder.append(offHand);
+		builder.append(", armor=");
+		builder.append(armor);
+		builder.append(", backpack=");
+		builder.append(backpack);
+		builder.append("]");
+		return builder.toString();
+	}
 	
 }

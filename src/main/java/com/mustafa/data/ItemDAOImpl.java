@@ -25,11 +25,16 @@ public class ItemDAOImpl implements ItemDAO {
 
 	public ItemDAOImpl() {
 		itemList = new ArrayList<>();
+		itemTypes = new ArrayList<>();
 		this.init();
 	}
 
 	@PostConstruct
-	private void init() {
+	public void init() {
+		this.itemTypes.add("Main Hand");
+		this.itemTypes.add("Off Hand");
+		this.itemTypes.add("Armor");
+		this.itemTypes.add("Other");
 		try (
 				InputStream is = wac.getServletContext().getResourceAsStream(FILE);
 				BufferedReader buf = new BufferedReader(new InputStreamReader(is));
@@ -40,7 +45,7 @@ public class ItemDAOImpl implements ItemDAO {
 				String[] tokens = line.split(",");
 				int id = Integer.parseInt(tokens[0]);
 				String name = tokens[1];
-				String type = tokens[2];
+				int type = Integer.parseInt(tokens[2]);
 				itemList.add(new Item(id, name, type));
 			}
 		} catch (Exception e) {
@@ -57,7 +62,7 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 
 	@Override
-	public List<Item> getItemByType(String type) {
+	public List<Item> getItemByType(int type) {
 		List<Item> newList = new ArrayList<>();
 		for (Item item : itemList) {
 			if (item.getType() == type) {
@@ -75,5 +80,15 @@ public class ItemDAOImpl implements ItemDAO {
 	@Override
 	public List<String> getItemsTypes() {
 		return new ArrayList<>(this.itemTypes);
+	}
+
+	@Override
+	public Item getItemById(int index) {
+		for (Item item : itemList) {
+			if(item.getId() == index) {
+				return item;
+			}
+		}
+		return null;
 	}
 }

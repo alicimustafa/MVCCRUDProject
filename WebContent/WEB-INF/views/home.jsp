@@ -25,9 +25,9 @@
 						</tr>
 					</thead>
 					<tbody>
-					<c:forEach var="party" items="${party}" varStatus="loop">
+					<c:forEach var="party" items="${party}">
 						<tr>
-						<td><a href="updateCharacter.do?id=${loop.index}&table=party">
+						<td><a href="updateCharacter.do?id=${party.id}&table=party">
 						${party.name}
 						</a></td>
 						<td>${party.characterClass}</td>
@@ -53,9 +53,9 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="pool" items="${pool}" varStatus="loop">
+						<c:forEach var="pool" items="${pool}">
 						<tr>
-						<td><a href="updateCharacter.do?id=${loop.index}&table=pool">
+						<td><a href="updateCharacter.do?id=${pool.id}&table=pool">
 						${pool.name}
 						</a></td>
 						<td>${pool.characterClass}</td>

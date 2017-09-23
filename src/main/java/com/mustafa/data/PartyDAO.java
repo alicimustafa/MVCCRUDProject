@@ -15,5 +15,7 @@ public interface PartyDAO {
 	public void setPoolList(List<Adventurer> poolList);
 	public List<Adventurer> getPartyList();
 	public void setPartyList(List<Adventurer> partyList);
-	void save();
+	public List<String> getClassTypes();
+	public void updatePool(int index, Adventurer character);
+	public void updateParty(int index, Adventurer character);
 }

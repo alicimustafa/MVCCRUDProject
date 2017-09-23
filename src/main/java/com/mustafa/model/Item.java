@@ -3,12 +3,12 @@ package com.mustafa.model;
 public class Item {
 	private int id;
 	private String name;
-	private String type;
+	private int type;
 
 	public Item() {
 	}
 
-	public Item(int id, String name, String type) {
+	public Item(int id, String name, int type) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -31,11 +31,11 @@ public class Item {
 		this.name = name;
 	}
 
-	public String getType() {
+	public int getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 
@@ -60,4 +60,18 @@ public class Item {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Item [id=");
+		builder.append(id);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", type=");
+		builder.append(type);
+		builder.append("]");
+		return builder.toString();
+	}
+	
 }

@@ -17,41 +17,66 @@
 		<div id="main-section" class="">
 			<div id="form-section" class="sub-sections">
 				<form action="character.do" method="POST">
-					<p>
-						Name:<input type="text" name="name" value="${name}" />
-					</p>
-					<input type="hidden" name="id" value="${id}"> <input
-						type="hidden" name="table" value="${table}">
-					<p>
-						Class:
-						<form:select path="classType" name="classType">
-							<form:options items="${classType}" />
-						</form:select>
+					<p>Name:<input type="text" name="name" value="${adventurer.name}"></p>
+					<input type="hidden" name="id" value="${adventurer.id}"> 
+					<input type="hidden" name="table" value="${table}">
+					<p>Class:
 						<select name="classType">
 							<c:forEach var="cls" items ="${classType}">
-								<option val="${cls}">${cls}</option>
+								<c:choose>
+									<c:when test="${adventurer.characterClass == cls}">
+    										<option value="${cls}" selected>${cls}</option>
+  									</c:when>
+  									<c:otherwise>
+  										<option value="${cls}">${cls}</option>
+  									</c:otherwise>
+								</c:choose>
 						    </c:forEach>
 						</select>
 					</p>
-					<p>
-						Main Hand:
-						<form:select path="mainHand" name="mainHand">
-							<form:options items="${mainHand}" />
-						</form:select>
+					<p>Main Hand:
+						<select name="mainHand">
+							<c:forEach var="mainHand" items ="${mainHand}">
+								<c:choose>
+									<c:when test="${adventurer.mainHand.id == mainHand.id}">
+    										<option value="${mainHand.id}" selected>${mainHand.name}</option>
+  									</c:when>
+  									<c:otherwise>
+  										<option value="${mainHand.id}">${mainHand.name}</option>
+  									</c:otherwise>
+								</c:choose>
+						    </c:forEach>
+						</select>
 					</p>
-					<p>
-						Off Hand
-						<form:select path="offHand" name="offHand">
-							<form:options items="${offHand}" />
-						</form:select>
+					<p>Off Hand
+						<select name="offHand">
+							<c:forEach var="offHand" items ="${offHand}">
+								<c:choose>
+									<c:when test="${adventurer.offHand.id == offHand.id}">
+    										<option value="${offHand.id}" selected>${offHand.name}</option>
+  									</c:when>
+  									<c:otherwise>
+  										<option value="${offHand.id}">${offHand.name}</option>
+  									</c:otherwise>
+								</c:choose>
+						    </c:forEach>
+						</select>
 					</p>
-					<p>
-						Armor:
-						<form:select path="armor" name="armor">
-							<form:options items="${armor}" />
-						</form:select>
+					<p>Armor: 
+						 <select name="armor">
+							<c:forEach var="armor" items ="${armor}">
+									<c:choose>
+									<c:when test="${adventurer.armor.id == armor.id}">
+    										<option value="${armor.id}" selected>${armor.name}</option>
+  									</c:when>
+  									<c:otherwise>
+  										<option value="${armor.id}">${armor.name}</option>
+  									</c:otherwise>
+								</c:choose> 
+						    </c:forEach>
+						</select> 
 					</p>
-					<input type="submit" name="${submitType}" value="${submitType}" />
+ 					<input type="submit" name="${submitType}" value="${submitType}" />
 				</form>
 			</div>
 		</div>

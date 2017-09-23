@@ -14,15 +14,15 @@ import com.mustafa.model.Item;
 public class ItemDAOTest {
 	
 	ItemDAOImpl dao;
-	Item[] ia = { new Item("sword", ItemType.MAIN_HAND),
-				new Item("axe", ItemType.MAIN_HAND),
-				new Item("spell book", ItemType.OFF_HAND),
-				new Item("shield", ItemType.OFF_HAND),
-				new Item("plate", ItemType.ARMOR),
-				new Item("gambison", ItemType.ARMOR),
-				new Item("rope", ItemType.OTHER),
-				new Item("rations", ItemType.OTHER),
-				new Item("water bottle", ItemType.OTHER)};
+	Item[] ia = { new Item(1,"sword", "MAIN_HAND"),
+				new Item(2,"axe", "MAIN_HAND"),
+				new Item(3,"spell book", "OFF_HAND"),
+				new Item(4,"shield", "OFF_HAND"),
+				new Item(5,"plate", "ARMOR"),
+				new Item(6,"gambison", "ARMOR"),
+				new Item(7,"rope", "OTHER"),
+				new Item(8,"rations", "OTHER"),
+				new Item(9,"water bottle", "OTHER")};
 
 	@Before
 	public void setUp() throws Exception {
@@ -41,32 +41,32 @@ public class ItemDAOTest {
 
 	@Test
 	public void test_getItemByType_return_main_hand() {
-		List<Item> main = dao.getItemByType(ItemType.MAIN_HAND);
+		List<Item> main = dao.getItemByType("MAIN_HAND");
 		assertEquals(2 , main.size());
-		assertTrue(main.get(0).equals(new Item("sword", ItemType.MAIN_HAND)));
-		assertTrue(main.get(1).equals(new Item("axe", ItemType.MAIN_HAND)));
+		assertTrue(main.get(0).equals(new Item(1,"sword", "MAIN_HAND")));
+		assertTrue(main.get(1).equals(new Item(2,"axe", "MAIN_HAND")));
 	}
 	@Test
 	public void test_getItemByType_return_off_hand() {
-		List<Item> off = dao.getItemByType(ItemType.OFF_HAND);
+		List<Item> off = dao.getItemByType("OFF_HAND");
 		assertEquals(2 , off.size());
-		assertTrue(off.get(0).equals(new Item("spell book", ItemType.OFF_HAND)));
-		assertTrue(off.get(1).equals(new Item("shield", ItemType.OFF_HAND)));
+		assertTrue(off.get(0).equals(new Item(3,"spell book", "OFF_HAND")));
+		assertTrue(off.get(1).equals(new Item(4,"shield", "OFF_HAND")));
 	}
 	@Test
 	public void test_getItemByType_return_armor() {
-		List<Item> main = dao.getItemByType(ItemType.ARMOR);
+		List<Item> main = dao.getItemByType("ARMOR");
 		assertEquals(2 , main.size());
-		assertTrue(main.get(0).equals(new Item("plate", ItemType.ARMOR)));
-		assertTrue(main.get(1).equals(new Item("gambison", ItemType.ARMOR)));
+		assertTrue(main.get(0).equals(new Item(5,"plate", "ARMOR")));
+		assertTrue(main.get(1).equals(new Item(6,"gambison", "ARMOR")));
 	}
 	@Test
 	public void test_getItemByType_return_other() {
-		List<Item> main = dao.getItemByType(ItemType.OTHER);
+		List<Item> main = dao.getItemByType("OTHER");
 		assertEquals(3 , main.size());
-		assertTrue(main.get(0).equals(new Item("rope", ItemType.OTHER)));
-		assertTrue(main.get(1).equals(new Item("rations", ItemType.OTHER)));
-		assertTrue(main.get(2).equals(new Item("water bottle", ItemType.OTHER)));
+		assertTrue(main.get(0).equals(new Item(7,"rope", "OTHER")));
+		assertTrue(main.get(1).equals(new Item(8,"rations", "OTHER")));
+		assertTrue(main.get(2).equals(new Item(9,"water bottle", "OTHER")));
 	}
 	
 }

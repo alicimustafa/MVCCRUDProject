@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,35 +120,40 @@ public class PartyDAOImpl implements PartyDAO {
 	}
 	
 	@Override
-	public void save() {
-
-	}
-
-	@Override
 	public void addTocharacterPool(Adventurer character) {
 		this.poolList.add(character);
 	}
 
 	@Override
 	public void moveCharacterToParty(int index) {
-		Adventurer moved = this.poolList.remove(index);
+		Adventurer moved = this.getCharacterFromPool(index);
 		this.partyList.add(moved);
 	}
 
 	@Override
 	public void moveCharacterToPool(int index) {
-		Adventurer moved = this.partyList.remove(index);
+		Adventurer moved = this.getCharacterFromParty(index);
 		this.poolList.add(moved);
 	}
 
 	@Override
 	public Adventurer getCharacterFromParty(int index) {
-		return partyList.get(index);
+		for (Adventurer member : partyList) {
+			if(member.getId() == index) {
+				return member;
+			}
+		}
+		return null;
 	}
 
 	@Override
 	public Adventurer getCharacterFromPool(int index) {
-		return poolList.get(index);
+		for (Adventurer member : poolList) {
+			if(member.getId() == index) {
+				return member;
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -155,4 +161,26 @@ public class PartyDAOImpl implements PartyDAO {
 		this.poolList.remove(index);
 	}
 
+	@Override
+	public List<String> getClassTypes() {
+		return new ArrayList<>(this.classTypes);
+	}
+
+	@Override
+	public void updatePool(int index, Adventurer character) {
+		for(int i = 0; i < this.poolList.size(); i++) {
+			if(this.poolList.get(i).getId() == index) {
+				this.poolList.set(i, character);
+			}
+		}
+	}
+
+	@Override
+	public void updateParty(int index, Adventurer character) {
+		for(int i = 0; i < this.partyList.size(); i++) {
+			if(this.partyList.get(i).getId() == index) {
+				this.partyList.set(i, character);
+			}
+		}
+	}
 }
