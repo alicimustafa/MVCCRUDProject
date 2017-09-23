@@ -56,12 +56,12 @@ public class ItemDAOdb implements ItemDAO {
 		Item item = null;
 		try {
 			Connection conn = DriverManager.getConnection(url, user, pass);
-			String sql = "SELECT title FROM film WHERE id = ?";
+			String sql = "SELECT name, type FROM items WHERE id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, id);
+			stmt.setInt(1, index);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				title = rs.getString(1);
+				item = new Item(index, rs.getString(1), rs.getInt(2));
 			}
 			rs.close();
 			stmt.close();
@@ -69,7 +69,7 @@ public class ItemDAOdb implements ItemDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return title;
+		return item;
 	}
 
 	@Override
