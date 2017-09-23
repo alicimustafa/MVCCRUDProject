@@ -74,14 +74,45 @@ public class ItemDAOdb implements ItemDAO {
 
 	@Override
 	public List<Item> getItemList() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Item> items = new ArrayList<>();
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pass);
+			String sql = "SELECT id, name, type FROM items";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				int id = rs.getInt(1);
+				String name = rs.getString(2);
+				int type = rs.getInt(3);
+				items.add(new Item(id, name, type));
+			}
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return items;
 	}
 
 	@Override
 	public List<String> getItemsTypes() {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> types = new ArrayList<>();
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pass);
+			String sql = "SELECT name FROM item_type";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				types.add(rs.getString(1));
+			}
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return types;	
 	}
 
 	@Override
