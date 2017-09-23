@@ -16,7 +16,6 @@ import com.mustafa.model.Item;
 @Component
 public class PartyDAOImpl implements PartyDAO {
 	
-	private static final String FILE = "/WEB-INF/CSVfiles/ItemList.csv";
 	private static final String POOL_FILE = "/WEB-INF/CSVfiles/PoolList.csv";
 	private static final String PARTY_FILE = "/WEB-INF/CSVfiles/PartyList.csv";
 	
@@ -25,25 +24,32 @@ public class PartyDAOImpl implements PartyDAO {
 	
 	private List<Adventurer> poolList;
 	private List<Adventurer> partyList;
+	private List<String> classTypes;
 	
 	public PartyDAOImpl() {
 		poolList = new ArrayList<>();
 		partyList = new ArrayList<>();
+		classTypes = new ArrayList<>();
 		init();
 	}
 	
 	private void init() {
 //		this.loadParty();
 //		this.loadPool();
-		this.partyList.add(new Adventurer("Gunther", ClassType.FIGHTHER));
-		this.partyList.add(new Adventurer("Dormus", ClassType.ARCHER));
-		this.partyList.add(new Adventurer("Loral", ClassType.CLERIC));
-		this.partyList.add(new Adventurer("Lycia", ClassType.MAGE));
+		this.classTypes.add("MAGE");
+		this.classTypes.add("ARCHER");
+		this.classTypes.add("FIGHTHER");
+		this.classTypes.add("CLERIC");
+		this.classTypes.add("ROGUE");
+		this.partyList.add(new Adventurer(1,"Gunther", "FIGHTHER"));
+		this.partyList.add(new Adventurer(2,"Dormus", "ARCHER"));
+		this.partyList.add(new Adventurer(3,"Loral", "CLERIC"));
+		this.partyList.add(new Adventurer(4,"Lycia", "MAGE"));
 		
-		this.poolList.add(new Adventurer("Talafane", ClassType.ROGUE));
-		this.poolList.add(new Adventurer("Fhaga", ClassType.MAGE));
-		this.poolList.add(new Adventurer("Valcon", ClassType.FIGHTHER));
-		this.poolList.add(new Adventurer("Thormund", ClassType.CLERIC));
+		this.poolList.add(new Adventurer(5,"Talafane", "ROGUE"));
+		this.poolList.add(new Adventurer(6,"Fhaga", "MAGE"));
+		this.poolList.add(new Adventurer(7,"Valcon", "FIGHTHER"));
+		this.poolList.add(new Adventurer(8,"Thormund", "CLERIC"));
 	}
 	
 	private void loadParty() {
@@ -55,12 +61,11 @@ public class PartyDAOImpl implements PartyDAO {
 			String line = "";
 			while ((line = buf.readLine()) != null) {
 				String[] tokens = line.split(",");
-				String name = tokens[0];
-				ClassType classType = ClassType.valueOf(tokens[1]);
-				Item mainHand = this.createItems(tokens[2]);
-				Item offHand = this.createItems(tokens[3]);
-				Item armor = this.createItems(tokens[4]);
-				partyList.add(new Adventurer(name, classType, mainHand, offHand, armor));
+				int id = Integer.parseInt(tokens[0]);
+				String name = tokens[1];
+				String classType = classTypes.get(Integer.parseInt(tokens[2]));
+				
+				partyList.add(new Adventurer(id, name, classType));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,25 +82,23 @@ public class PartyDAOImpl implements PartyDAO {
 			String line = "";
 			while ((line = buf.readLine()) != null) {
 				String[] tokens = line.split(",");
-				String name = tokens[0];
-				ClassType classType = ClassType.valueOf(tokens[1]);
-				Item mainHand = this.createItems(tokens[2]);
-				Item offHand = this.createItems(tokens[3]);
-				Item armor = this.createItems(tokens[4]);
-				poolList.add(new Adventurer(name, classType, mainHand, offHand, armor));
+				int id = Integer.parseInt(tokens[0]);
+				String name = tokens[1];
+				String classType = classTypes.get(Integer.parseInt(tokens[2]));
+				poolList.add(new Adventurer(id, name, classType));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private Item createItems(String data) {
-		if(data.equals("")) {
-			return null;
-		}
-		String[] part = data.split(":");
-		return new Item(part[0], ItemType.valueOf(part[1]));
-	}
+//	private Item createItems(String data) {
+//		if(data.equals("")) {
+//			return null;
+//		}
+//		String[] part = data.split(":");
+//		return new Item(part[0], ItemType.valueOf(part[1]));
+//	}
 	
 	@Override
 	public List<Adventurer> getPoolList() {

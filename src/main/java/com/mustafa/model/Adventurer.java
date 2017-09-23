@@ -17,6 +17,13 @@ public class Adventurer {
 	
 	public Adventurer() {
 	}
+	
+	public Adventurer(int id, String name, String characterClass) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.characterClass = characterClass;
+	}
 
 	public Adventurer(int id, String name, String characterClass, Item mainHand, Item offHand, Item armor) {
 		super();

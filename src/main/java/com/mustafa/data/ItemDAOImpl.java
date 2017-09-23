@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.junit.experimental.theories.Theories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
@@ -18,7 +17,8 @@ import com.mustafa.model.Item;
 @Component
 public class ItemDAOImpl implements ItemDAO {
 
-	List<Item> itemList;
+	private List<Item> itemList;
+	private List<String> itemTypes;
 	private static final String FILE = "/WEB-INF/CSVfiles/ItemList.csv";
 	@Autowired
 	private WebApplicationContext wac;
@@ -38,9 +38,10 @@ public class ItemDAOImpl implements ItemDAO {
 			String line = "";
 			while ((line = buf.readLine()) != null) {
 				String[] tokens = line.split(",");
-				String name = tokens[0];
-				ItemType type = ItemType.valueOf(tokens[1]);
-				itemList.add(new Item(name, type));
+				int id = Integer.parseInt(tokens[0]);
+				String name = tokens[1];
+				String type = tokens[2];
+				itemList.add(new Item(id, name, type));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,7 +57,7 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 
 	@Override
-	public List<Item> getItemByType(ItemType type) {
+	public List<Item> getItemByType(String type) {
 		List<Item> newList = new ArrayList<>();
 		for (Item item : itemList) {
 			if (item.getType() == type) {
@@ -64,5 +65,15 @@ public class ItemDAOImpl implements ItemDAO {
 			}
 		}
 		return newList;
+	}
+
+	@Override
+	public void addNewItem(Item item) {
+		itemList.add(item);
+	}
+
+	@Override
+	public List<String> getItemsTypes() {
+		return new ArrayList<>(this.itemTypes);
 	}
 }
