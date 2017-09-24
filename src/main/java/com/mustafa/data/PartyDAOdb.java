@@ -6,12 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
 import com.mustafa.model.Adventurer;
-import com.mustafa.model.Item;
+import com.mysql.jdbc.Statement;
 
 @Component
 public class PartyDAOdb implements PartyDAO {
@@ -19,8 +21,15 @@ public class PartyDAOdb implements PartyDAO {
 	private static String url = "jdbc:mysql://localhost:3306/partydb";
 	private String user = "gamemaster";
 	private String pass = "gameOn66";
+	private Map<String, Integer> classId;
 
 	public PartyDAOdb() {
+		classId = new HashMap<>();
+		classId.put("MAGE", 1);
+		classId.put("ARCHER", 2);
+		classId.put("FIGHTHER", 3);
+		classId.put("ROGUE", 4);
+		classId.put("CLERIC", 5);
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -30,21 +39,102 @@ public class PartyDAOdb implements PartyDAO {
 	}
 	
 	@Override
-	public void addTocharacterPool(Adventurer character) {
-		// TODO Auto-generated method stub
-
+	public  Adventurer addTocharacterPool(Adventurer character) {
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false);
+			String sql = "INSERT INTO adventurer (name,main_hand,off_hand,armor) VALUES (?,?,?,?)";
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, character.getName());
+			stmt.setInt(2, classId.get(character.getCharacterClass()));
+			stmt.setInt(2, character.getMainHand().getId());
+			stmt.setInt(3, character.getOffHand().getId());
+			stmt.setInt(4, character.getArmor().getId());
+			int updateCount = stmt.executeUpdate();
+			if (updateCount == 1) {
+				ResultSet keys = stmt.getGeneratedKeys();
+				if (keys.next()) {
+					int newAdvenId = keys.getInt(1);
+					character.setId(newAdvenId);
+					keys.close();
+					stmt.close();
+					sql = "INSERT INTO adventurer_group (adventurer_id,group_id) VALUES(?,?)";
+					stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+					stmt.setInt(1, newAdvenId);
+					stmt.setInt(2 , 2);
+					updateCount = stmt.executeUpdate();
+					if(updateCount == 1) {
+						conn.commit();
+					} else {
+						try {
+							conn.rollback();
+						} catch (SQLException sqle2) {
+							System.err.println("Error trying to rollback");
+						}
+					}
+				} else {
+					character = null;
+					try {
+						conn.rollback();
+					} catch (SQLException sqle2) {
+						System.err.println("Error trying to rollback");
+					}
+				}
+			} else {
+				character = null;
+				try {
+					conn.rollback();
+				} catch (SQLException sqle2) {
+					System.err.println("Error trying to rollback");
+				}
+			}
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException sqle2) {
+				System.err.println("Error trying to rollback");
+			}
+		}
+		return character;
 	}
 
 	@Override
 	public void moveCharacterToParty(int index) {
-		// TODO Auto-generated method stub
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pass);
+			
+			String sql = "UPDATE  film set title=?, description=?, release_year=?,  "
+					+ " rental_duration=?, rental_rate=?, length=?, replacement_cost=? "
+					+ " WHERE id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, film.getTitle());
+			stmt.setString(2, film.getDescription());
+			stmt.setInt(3, film.getYear());
+			stmt.setInt(4, film.getRental_duration());
+			stmt.setDouble(5, film.getRentalRate());
+			stmt.setInt(6, film.getLength());
+			stmt.setDouble(7, film.getReplacementCost());
+			stmt.setInt(8, film.getId());
+			int updateCount = stmt.executeUpdate();
+			System.out.println("update: " + updateCount);
+			if (updateCount != 1) {
+				film = null;
+			}
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(film);
+		return film;
 
 	}
 
 	@Override
 	public void moveCharacterToPool(int index) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

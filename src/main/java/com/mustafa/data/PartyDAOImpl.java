@@ -116,8 +116,9 @@ public class PartyDAOImpl implements PartyDAO {
 	}
 	
 	@Override
-	public void addTocharacterPool(Adventurer character) {
+	public Adventurer addTocharacterPool(Adventurer character) {
 		this.poolList.add(character);
+		return character;
 	}
 
 	@Override

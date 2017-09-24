@@ -5,7 +5,7 @@ import java.util.List;
 import com.mustafa.model.Adventurer;
 
 public interface PartyDAO {
-	public void addTocharacterPool(Adventurer character);
+	public Adventurer addTocharacterPool(Adventurer character);
 	public void moveCharacterToParty(int index);
 	public void moveCharacterToPool(int index);
 	public void deletCharacterFromPool(int index);
