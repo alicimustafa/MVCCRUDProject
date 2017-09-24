@@ -152,6 +152,8 @@ public class PartyDAOdb implements PartyDAO {
 			stmt.setInt(1, index);
 			stmt.executeUpdate();
 			conn.commit(); 
+			stmt.close();
+			conn.close();
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 			try {
@@ -208,6 +210,9 @@ public class PartyDAOdb implements PartyDAO {
 				adven.setOffHand(new Item(rs.getInt(7), rs.getString(8), rs.getShort(9)));
 				adven.setArmor(new Item(rs.getInt(10), rs.getString(11), rs.getShort(12)));
 			}
+			rs.close();
+			stmt.close();
+			conn.close();
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
@@ -278,6 +283,9 @@ public class PartyDAOdb implements PartyDAO {
 			while(rs.next()) {
 				classList.add(rs.getString(1));
 			}
+			rs.close();
+			stmt.close();
+			conn.close();
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
@@ -285,15 +293,35 @@ public class PartyDAOdb implements PartyDAO {
 	}
 
 	@Override
-	public void updatePool(int index, Adventurer character) {
-		// TODO Auto-generated method stub
-
+	public void updatePool(Adventurer character) {
+		this.updatedAdventurer(character);
 	}
 
 	@Override
-	public void updateParty(int index, Adventurer character) {
-		// TODO Auto-generated method stub
-
+	public void updateParty(Adventurer character) {
+		this.updatedAdventurer(character);
+	}
+	
+	private void updatedAdventurer(Adventurer character) {
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pass);
+			String sql = "UPDATE adventurer SET\n" + 
+					"	class_type = ?,\n" + 
+					"    main_hand = ?,\n" + 
+					"    off_hand = ?,\n" + 
+					"    armor = ? WHERE id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, classId.get(character.getCharacterClass()));
+			stmt.setInt(2, character.getMainHand().getId());
+			stmt.setInt(3, character.getOffHand().getId());
+			stmt.setInt(4, character.getArmor().getId());
+			stmt.setInt(5, character.getId());
+			stmt.executeUpdate();
+			stmt.close();
+			conn.close();
+		} catch(SQLException se) {
+			se.printStackTrace();
+		}
 	}
 
 }

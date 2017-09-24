@@ -108,16 +108,17 @@ public class PartyPickerController {
 			method = RequestMethod.POST,
 			params = "Update")
 	public String updateCharacter(Input input) {
+		int id = input.getId();
 		String name = input.getName();
 		String classType = input.getClassType();
 		Item mainHand = itemDAO.getItemById(input.getMainHand());
 		Item offHand = itemDAO.getItemById(input.getOffHand());
 		Item armor = itemDAO.getItemById(input.getArmor());
-		Adventurer ad = new Adventurer(0 , name, classType, mainHand, offHand, armor);
+		Adventurer ad = new Adventurer(id , name, classType, mainHand, offHand, armor);
 		if(input.getTable().equals("party")) {
-			this.partyDAO.updateParty(input.getId(), ad);
+			this.partyDAO.updateParty(ad);
 		} else {
-			this.partyDAO.updatePool(input.getId(), ad);
+			this.partyDAO.updatePool(ad);
 		}
 		return "redirect:home.do";
 	}
