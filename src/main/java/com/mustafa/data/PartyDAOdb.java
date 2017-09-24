@@ -13,6 +13,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import com.mustafa.model.Adventurer;
+import com.mustafa.model.Item;
 import com.mysql.jdbc.Statement;
 
 @Component
@@ -137,22 +138,82 @@ public class PartyDAOdb implements PartyDAO {
 
 	@Override
 	public void deletCharacterFromPool(int index) {
-		// TODO Auto-generated method stub
-
+		Connection conn = null;
+		boolean b = false;
+		try {
+			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false); // START TRANSACTION
+			String sql1 = "DELETE FROM adventurer_group WHERE adventurer_id= ?";
+			String sql2 = "DELETE FROM adventurer WHERE id= ?";
+			PreparedStatement stmt = conn.prepareStatement(sql1);
+			stmt.setInt(1, index);
+			stmt.executeUpdate();
+			stmt = conn.prepareStatement(sql2);
+			stmt.setInt(1, index);
+			stmt.executeUpdate();
+			conn.commit(); 
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException sqle2) {
+				System.err.println("Error trying to rollback");
+			}
+		}
 	}
 
 	@Override
 	public Adventurer getCharacterFromParty(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		return getCharacter(index);
 	}
 
 	@Override
 	public Adventurer getCharacterFromPool(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		return getCharacter(index);
 	}
-
+	
+	private Adventurer getCharacter(int index) {
+		Adventurer adven = new Adventurer();
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pass);
+			String sql = "SELECT \n" + 
+					"	adventurer.id,\n" + 
+					"	adventurer.name,\n" + 
+					"    class_type.name ct,\n" + 
+					"    mh.id,\n" + 
+					"    mh.name,\n" + 
+					"    mh.type,\n" + 
+					"    oh.id,\n" + 
+					"    oh.name,\n" + 
+					"    oh.type,\n" + 
+					"    ar.id,\n" + 
+					"    ar.name,\n" + 
+					"    ar.type\n" + 
+					"    FROM adventurer\n" + 
+					"    JOIN class_type ON class_type.id = adventurer.class_type\n" + 
+					"    JOIN items AS mh ON adventurer.main_hand = mh.id\n" + 
+					"    JOIN items AS oh ON adventurer.off_hand = oh.id\n" + 
+					"    JOIN items AS ar ON adventurer.armor = ar.id\n" + 
+					"    WHERE adventurer.id = ? \n" + 
+					"    \n" + 
+					"";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, index);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) {
+				adven.setId(rs.getInt(1));
+				adven.setName(rs.getString(2));
+				adven.setCharacterClass(rs.getString(3));
+				adven.setMainHand(new Item(rs.getInt(4), rs.getString(5), rs.getShort(6)));
+				adven.setOffHand(new Item(rs.getInt(7), rs.getString(8), rs.getShort(9)));
+				adven.setArmor(new Item(rs.getInt(10), rs.getString(11), rs.getShort(12)));
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+		System.out.println(adven);
+		return adven;
+	}
 	@Override
 	public List<Adventurer> getPoolList() {
 		return this.getListByParty(2);
