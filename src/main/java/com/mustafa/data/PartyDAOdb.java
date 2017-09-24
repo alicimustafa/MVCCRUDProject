@@ -44,13 +44,13 @@ public class PartyDAOdb implements PartyDAO {
 		try {
 			conn = DriverManager.getConnection(url, user, pass);
 			conn.setAutoCommit(false);
-			String sql = "INSERT INTO adventurer (name,main_hand,off_hand,armor) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO adventurer (name,class_type,main_hand,off_hand,armor) VALUES (?,?,?,?,?)";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, character.getName());
 			stmt.setInt(2, classId.get(character.getCharacterClass()));
-			stmt.setInt(2, character.getMainHand().getId());
-			stmt.setInt(3, character.getOffHand().getId());
-			stmt.setInt(4, character.getArmor().getId());
+			stmt.setInt(3, character.getMainHand().getId());
+			stmt.setInt(4, character.getOffHand().getId());
+			stmt.setInt(5, character.getArmor().getId());
 			int updateCount = stmt.executeUpdate();
 			if (updateCount == 1) {
 				ResultSet keys = stmt.getGeneratedKeys();
@@ -64,9 +64,7 @@ public class PartyDAOdb implements PartyDAO {
 					stmt.setInt(1, newAdvenId);
 					stmt.setInt(2 , 2);
 					updateCount = stmt.executeUpdate();
-					if(updateCount == 1) {
-						conn.commit();
-					} else {
+					if(updateCount != 1) {
 						try {
 							conn.rollback();
 						} catch (SQLException sqle2) {
@@ -89,6 +87,9 @@ public class PartyDAOdb implements PartyDAO {
 					System.err.println("Error trying to rollback");
 				}
 			}
+			conn.commit();
+			stmt.close();
+			conn.close();
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 			try {
@@ -105,36 +106,33 @@ public class PartyDAOdb implements PartyDAO {
 		try {
 			Connection conn = DriverManager.getConnection(url, user, pass);
 			
-			String sql = "UPDATE  film set title=?, description=?, release_year=?,  "
-					+ " rental_duration=?, rental_rate=?, length=?, replacement_cost=? "
-					+ " WHERE id = ?";
+			String sql = "UPDATE adventurer_group SET group_id = ? WHERE adventurer_id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, film.getTitle());
-			stmt.setString(2, film.getDescription());
-			stmt.setInt(3, film.getYear());
-			stmt.setInt(4, film.getRental_duration());
-			stmt.setDouble(5, film.getRentalRate());
-			stmt.setInt(6, film.getLength());
-			stmt.setDouble(7, film.getReplacementCost());
-			stmt.setInt(8, film.getId());
-			int updateCount = stmt.executeUpdate();
-			System.out.println("update: " + updateCount);
-			if (updateCount != 1) {
-				film = null;
-			}
+			stmt.setInt(1, 1);
+			stmt.setInt(2, index);
+			stmt.executeUpdate();
 			stmt.close();
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(film);
-		return film;
-
 	}
 
 	@Override
 	public void moveCharacterToPool(int index) {
-		
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pass);
+			
+			String sql = "UPDATE adventurer_group SET group_id = ? WHERE adventurer_id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 2);
+			stmt.setInt(2, index);
+			stmt.executeUpdate();
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -209,8 +207,20 @@ public class PartyDAOdb implements PartyDAO {
 
 	@Override
 	public List<String> getClassTypes() {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> classList = new ArrayList<>();
+		
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pass);
+			String sql = "SELECT name FROM class_type";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				classList.add(rs.getString(1));
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+		return classList;
 	}
 
 	@Override

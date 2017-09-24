@@ -143,6 +143,8 @@ public class ItemDAOdb implements ItemDAO {
 			} else {
 				item = null;
 			}
+			stmt.close();
+			conn.close();
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}

@@ -32,7 +32,7 @@
 						</a></td>
 						<td>${party.characterClass}</td>
 						<td><form class="" action="party.do" method="post">
-								<input type="hidden" name="partyMember" value="${loop.index }"> 
+								<input type="hidden" name="partyMember" value="${party.id }"> 
 								<input type="submit" name="remove" value="Remove">
 							</form>
 						</td>
@@ -60,7 +60,7 @@
 						</a></td>
 						<td>${pool.characterClass}</td>
 						<td><form class="" action="pool.do" method="post">
-								<input type="hidden" name="poolMember" value="${loop.index }"> 
+								<input type="hidden" name="poolMember" value="${pool.id }"> 
 								<input type="submit" name="delete" value="Delete">
 								<input type="submit" name="move" value="Add to Party">
 							</form>
