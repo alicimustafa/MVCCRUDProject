@@ -10,5 +10,5 @@ public interface ItemDAO {
 	public List<Item> getItemList();
 	public List<String> getItemsTypes();
 	public void setItemList(List<Item> itemList);
-	public void addNewItem(Item item);
+	public Item addNewItem(Item item);
 }

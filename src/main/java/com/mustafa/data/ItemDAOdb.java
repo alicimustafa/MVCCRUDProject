@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import com.mysql.jdbc.Statement;
 
 import org.springframework.stereotype.Component;
 
@@ -122,9 +123,29 @@ public class ItemDAOdb implements ItemDAO {
 	}
 
 	@Override
-	public void addNewItem(Item item) {
-		// TODO Auto-generated method stub
-		
+	public Item addNewItem(Item item) {
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url, user, pass);
+			String sql = "INSERT INTO items (name,type) VALUES ( ? , ? )";
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, item.getName());
+			stmt.setInt(2, item.getType());
+			int updateCount = stmt.executeUpdate();
+			if (updateCount == 1) {
+				ResultSet keys = stmt.getGeneratedKeys();
+				if (keys.next()) {
+					int newFilmId = keys.getInt(1);
+					item.setId(newFilmId);
+				} else {
+					item = null;
+				}
+			} else {
+				item = null;
+			}
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+		return item;
 	}
-	
 }

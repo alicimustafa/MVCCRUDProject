@@ -9,5 +9,10 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/mustafaalici/.gradle/caches/modules-2/files-2.1/mysql/mysql-connector-java/5.1.42/80a448a3ec2178b649bb2e3cb3610fab06e11669/mysql-connector-java-5.1.42.jar" sourcepath="/Users/mustafaalici/.gradle/caches/modules-2/files-2.1/mysql/mysql-connector-java/5.1.42/d4e97df0e0b7e56783a31290e1e70333fa3cd7db/mysql-connector-java-5.1.42-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

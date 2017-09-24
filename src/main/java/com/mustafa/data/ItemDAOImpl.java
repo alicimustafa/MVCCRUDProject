@@ -9,12 +9,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.mustafa.model.Item;
 
-@Component
+
 public class ItemDAOImpl implements ItemDAO {
 
 	private List<Item> itemList;
@@ -73,8 +72,9 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 
 	@Override
-	public void addNewItem(Item item) {
+	public Item addNewItem(Item item) {
 		itemList.add(item);
+		return item;
 	}
 
 	@Override

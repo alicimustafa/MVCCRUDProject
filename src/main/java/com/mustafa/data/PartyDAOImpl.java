@@ -4,17 +4,13 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.mustafa.model.Adventurer;
-import com.mustafa.model.Item;
 
-@Component
 public class PartyDAOImpl implements PartyDAO {
 	
 	private static final String POOL_FILE = "/WEB-INF/CSVfiles/PoolList.csv";
