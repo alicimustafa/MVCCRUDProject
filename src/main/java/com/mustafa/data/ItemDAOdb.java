@@ -12,6 +12,7 @@ import com.mysql.jdbc.Statement;
 import org.springframework.stereotype.Component;
 
 import com.mustafa.model.Item;
+import com.mustafa.model.ItemType;
 
 @Component
 public class ItemDAOdb implements ItemDAO {
@@ -97,15 +98,15 @@ public class ItemDAOdb implements ItemDAO {
 	}
 
 	@Override
-	public List<String> getItemsTypes() {
-		List<String> types = new ArrayList<>();
+	public List<ItemType> getItemsTypes() {
+		List<ItemType> types = new ArrayList<>();
 		try {
 			Connection conn = DriverManager.getConnection(url, user, pass);
-			String sql = "SELECT name FROM item_type";
+			String sql = "SELECT id, name FROM item_type";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-				types.add(rs.getString(1));
+				types.add(new ItemType(rs.getInt(1), rs.getString(2)));
 			}
 			rs.close();
 			stmt.close();

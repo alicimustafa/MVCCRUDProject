@@ -138,7 +138,6 @@ public class PartyDAOdb implements PartyDAO {
 	@Override
 	public void deletCharacterFromPool(int index) {
 		Connection conn = null;
-		boolean b = false;
 		try {
 			conn = DriverManager.getConnection(url, user, pass);
 			conn.setAutoCommit(false); // START TRANSACTION

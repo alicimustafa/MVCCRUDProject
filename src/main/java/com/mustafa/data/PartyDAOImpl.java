@@ -183,7 +183,7 @@ public class PartyDAOImpl implements PartyDAO {
 	}
 
 	@Override
-	public List<String> getBackpack(int id) {
+	public List<Item> getBackpack(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

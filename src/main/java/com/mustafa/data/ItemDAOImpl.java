@@ -12,12 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.mustafa.model.Item;
+import com.mustafa.model.ItemType;
 
 
 public class ItemDAOImpl implements ItemDAO {
 
 	private List<Item> itemList;
-	private List<String> itemTypes;
+	private List<ItemType> itemTypes;
 	private static final String FILE = "/WEB-INF/CSVfiles/ItemList.csv";
 	@Autowired
 	private WebApplicationContext wac;
@@ -30,10 +31,10 @@ public class ItemDAOImpl implements ItemDAO {
 
 	@PostConstruct
 	public void init() {
-		this.itemTypes.add("Main Hand");
-		this.itemTypes.add("Off Hand");
-		this.itemTypes.add("Armor");
-		this.itemTypes.add("Other");
+		this.itemTypes.add(new ItemType(1,"Main Hand"));
+		this.itemTypes.add(new ItemType(2,"Off Hand"));
+		this.itemTypes.add(new ItemType(3,"Armor"));
+		this.itemTypes.add(new ItemType(4,"Other"));
 		try (
 				InputStream is = wac.getServletContext().getResourceAsStream(FILE);
 				BufferedReader buf = new BufferedReader(new InputStreamReader(is));
@@ -78,7 +79,7 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 
 	@Override
-	public List<String> getItemsTypes() {
+	public List<ItemType> getItemsTypes() {
 		return new ArrayList<>(this.itemTypes);
 	}
 

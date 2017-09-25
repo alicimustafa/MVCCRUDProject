@@ -48,14 +48,16 @@
 					<input type="submit" name="submit" value="Add Item">
 				</form>
 				<h3>Create Item</h3>
-				<form class="" action="createItem.do" method="post">
+				<form class="" action="createItem.do" method="get">
+					<input type="hidden" name="advenId" value="${id}">
 					<p>Item Name:
 						<input type="text" name="name" value="">
 					</p>
 					<p>Item type
 						<select class="" name="type">
 							<c:forEach var="type" items="${itemTypes}">
-								<option>${type}</option>
+								${type}
+								<option value="${type.id}">${type.name}</option>
 							</c:forEach>
 						</select>
 					</p>

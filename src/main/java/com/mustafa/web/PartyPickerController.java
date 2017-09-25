@@ -3,20 +3,18 @@ package com.mustafa.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.test.web.servlet.result.FlashAttributeResultMatchers;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mustafa.data.ItemDAO;
 import com.mustafa.data.PartyDAO;
 import com.mustafa.model.Adventurer;
 import com.mustafa.model.Input;
 import com.mustafa.model.Item;
+import com.mustafa.model.ItemType;
 
 @Controller
 public class PartyPickerController {
@@ -133,7 +131,7 @@ public class PartyPickerController {
 	public String displayItemEdit(Model model, @RequestParam("id") int id) {
 		List<Item> itemList = itemDAO.getItemList();
 		List<Item> backpack = partyDAO.getBackpack(id);
-		List<String> itemTypes = itemDAO.getItemsTypes();
+		List<ItemType> itemTypes = itemDAO.getItemsTypes();
 		String name = partyDAO.getCharacterFromParty(id).getName();
 		model.addAttribute("id", id);
 		model.addAttribute("name", name);
@@ -153,7 +151,14 @@ public class PartyPickerController {
 		partyDAO.deleItemFromBackpack(advenId, itemId);
 		return "redirect:editBackpack.do?id=" + advenId;
 	}
-
+	
+	@RequestMapping(path = "createItem.do", method = RequestMethod.GET)
+	public String createItem(@RequestParam("name") String name, 
+							@RequestParam("type") int type,
+							@RequestParam("advenId") int advenId) {
+		itemDAO.addNewItem(new Item(0,name,type));
+		return "redirect:editBackpack.do?id=" + advenId;
+	}
 	public PartyDAO getPartyDOA() {
 		return partyDAO;
 	}
