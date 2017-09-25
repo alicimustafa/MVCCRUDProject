@@ -123,7 +123,6 @@ public class PartyDAOdb implements PartyDAO {
 	public void moveCharacterToPool(int index) {
 		try {
 			Connection conn = DriverManager.getConnection(url, user, pass);
-			
 			String sql = "UPDATE adventurer_group SET group_id = ? WHERE adventurer_id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, 2);
@@ -216,7 +215,6 @@ public class PartyDAOdb implements PartyDAO {
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
-		System.out.println(adven);
 		return adven;
 	}
 	@Override
@@ -321,6 +319,55 @@ public class PartyDAOdb implements PartyDAO {
 			conn.close();
 		} catch(SQLException se) {
 			se.printStackTrace();
+		}
+	}
+
+	@Override
+	public List<Item> getBackpack(int id) {
+		List<Item> backpack = new ArrayList<>();
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pass);
+			String sql = "SELECT items.id, items.name, items.type FROM items\n" + 
+					"JOIN backpack ON items.id = backpack.item_id\n" + 
+					"WHERE backpack.addventurer_id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				Item item = new Item(rs.getInt(1), rs.getString(2), rs.getInt(3));
+				backpack.add(item);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return backpack;
+	}
+
+	@Override
+	public void addItemToBackpack(int advenId, int itemId) {
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pass);
+			String sql = "INSERT INTO backpack (addventurer_id, item_id) VALUES(?,?)"; 
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, advenId);
+			stmt.setInt(2, itemId);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleItemFromBackpack(int advenId, int itemId) {
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pass);
+			String sql = "DELETE FROM backpack WHERE addventurer_id = ? AND item_id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, advenId);
+			stmt.setInt(2, itemId);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 

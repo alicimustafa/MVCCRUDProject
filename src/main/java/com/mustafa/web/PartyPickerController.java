@@ -1,5 +1,7 @@
 package com.mustafa.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -79,6 +81,8 @@ public class PartyPickerController {
 		} else {
 			adventurer = partyDAO.getCharacterFromPool(id);
 		}
+		List<Item> backpack = partyDAO.getBackpack(id);
+		model.addAttribute("backpack", backpack);
 		model.addAttribute("adventurer", adventurer);
 		model.addAttribute("id", id);
 		model.addAttribute("table", table);
@@ -121,6 +125,20 @@ public class PartyPickerController {
 			this.partyDAO.updatePool(ad);
 		}
 		return "redirect:home.do";
+	}
+	
+	@RequestMapping(path = "editBackpack.do", method = RequestMethod.GET)
+	public String displayItemEdit(Model model, @RequestParam("id") int id) {
+		List<Item> itemList = itemDAO.getItemList();
+		List<Item> backpack = partyDAO.getBackpack(id);
+		List<String> itemTypes = itemDAO.getItemsTypes();
+		String name = partyDAO.getCharacterFromParty(id).getName();
+		model.addAttribute("id", id);
+		model.addAttribute("name", name);
+		model.addAttribute("itemList", itemList);
+		model.addAttribute("backpack", backpack);
+		model.addAttribute("itemTypes", itemTypes);
+		return "item";
 	}
 
 	public PartyDAO getPartyDOA() {

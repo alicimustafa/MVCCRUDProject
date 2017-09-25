@@ -70,11 +70,11 @@ CREATE TABLE IF NOT EXISTS `adventurer` (
   `main_hand` INT UNSIGNED NULL,
   `off_hand` INT UNSIGNED NULL,
   `armor` INT UNSIGNED NULL,
-  PRIMARY KEY (`id`),
   INDEX `fk_adventurere_main_hand_idx` (`main_hand` ASC),
   INDEX `fk_addventurer_class_type_idx` (`class_type` ASC),
   INDEX `fk__idx` (`off_hand` ASC),
   INDEX `fk_adventurer_item_armor_idx` (`armor` ASC),
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_adventurer_item`
     FOREIGN KEY (`main_hand`)
     REFERENCES `items` (`id`)

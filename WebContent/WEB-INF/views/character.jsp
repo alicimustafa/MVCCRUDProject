@@ -16,6 +16,7 @@
 		</div>
 		<div id="main-section" class="">
 			<div id="form-section" class="sub-sections">
+				<h3>${adventurer.name} Equipment</h3>
 				<form action="character.do" method="POST">
 					<p>Name:<input type="text" name="name" value="${adventurer.name}"></p>
 					<input type="hidden" name="id" value="${adventurer.id}"> 
@@ -78,7 +79,20 @@
 					</p>
  					<input type="submit" name="${submitType}" value="${submitType}" />
 				</form>
+				<a href="home.do">Go to home page</a>
 			</div>
+			<c:if test="${submitType == 'Update'}">
+				<div id="backpack-section" class="sub-sections">
+				<h3>${adventurer.name} Backpack</h3>
+				<ul>
+				<c:forEach var="item" items="${backpack}">
+					<li>${item.name}</li>
+				</c:forEach>
+					
+				</ul>
+				<a href="editBackpack.do?id=${adventurer.id}">Edit Backpack</a>
+				</div>
+			</c:if>
 		</div>
 	</div>
 </body>

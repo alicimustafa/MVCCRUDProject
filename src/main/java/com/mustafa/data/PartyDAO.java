@@ -3,6 +3,7 @@ package com.mustafa.data;
 import java.util.List;
 
 import com.mustafa.model.Adventurer;
+import com.mustafa.model.Item;
 
 public interface PartyDAO {
 	public Adventurer addTocharacterPool(Adventurer character);
@@ -18,4 +19,7 @@ public interface PartyDAO {
 	public List<String> getClassTypes();
 	public void updatePool(Adventurer character);
 	public void updateParty(Adventurer character);
+	public List<Item> getBackpack(int id);
+	public void addItemToBackpack(int advenId, int itemId);
+	public void deleItemFromBackpack(int advenId, int itemId);
 }

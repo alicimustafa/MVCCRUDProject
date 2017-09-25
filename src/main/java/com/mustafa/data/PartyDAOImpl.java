@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.mustafa.model.Adventurer;
+import com.mustafa.model.Item;
 
 public class PartyDAOImpl implements PartyDAO {
 	
@@ -164,20 +165,38 @@ public class PartyDAOImpl implements PartyDAO {
 	}
 
 	@Override
-	public void updatePool(int index, Adventurer character) {
+	public void updatePool(Adventurer character) {
 		for(int i = 0; i < this.poolList.size(); i++) {
-			if(this.poolList.get(i).getId() == index) {
+			if(this.poolList.get(i).getId() == character.getId()) {
 				this.poolList.set(i, character);
 			}
 		}
 	}
 
 	@Override
-	public void updateParty(int index, Adventurer character) {
+	public void updateParty(Adventurer character) {
 		for(int i = 0; i < this.partyList.size(); i++) {
-			if(this.partyList.get(i).getId() == index) {
+			if(this.partyList.get(i).getId() == character.getId()) {
 				this.partyList.set(i, character);
 			}
 		}
+	}
+
+	@Override
+	public List<String> getBackpack(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addItemToBackpack(int advenId, int itemId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleItemFromBackpack(int advenId, int itemId) {
+		// TODO Auto-generated method stub
+		
 	}
 }
