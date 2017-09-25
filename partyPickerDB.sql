@@ -107,16 +107,17 @@ CREATE TABLE IF NOT EXISTS `backpack` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `item_id` INT UNSIGNED NULL,
   `addventurer_id` INT UNSIGNED NULL,
-  INDEX `fk_bakcpack_adventurer_idx` (`addventurer_id` ASC),
   PRIMARY KEY (`id`),
+  INDEX `fk_bakcpack_adventurer_idx` (`addventurer_id` ASC),
+  INDEX `fk_backpack_item_idx` (`item_id` ASC),
   CONSTRAINT `fk_bakcpack_adventurer`
     FOREIGN KEY (`addventurer_id`)
-    REFERENCES `adventurer` (`class_type`)
+    REFERENCES `adventurer` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_backpack_item`
     FOREIGN KEY (`item_id`)
-    REFERENCES `items` (`type`)
+    REFERENCES `items` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
