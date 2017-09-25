@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.test.web.servlet.result.FlashAttributeResultMatchers;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mustafa.data.ItemDAO;
 import com.mustafa.data.PartyDAO;
@@ -139,6 +141,17 @@ public class PartyPickerController {
 		model.addAttribute("backpack", backpack);
 		model.addAttribute("itemTypes", itemTypes);
 		return "item";
+	}
+	
+	@RequestMapping(path = "addItem.do", method = RequestMethod.POST)
+	public String addItemToBackpack(@RequestParam("itemId") int itemId, @RequestParam("advenId") int advenId) {
+		partyDAO.addItemToBackpack(advenId, itemId);
+		return "redirect:editBackpack.do?id=" + advenId;
+	}
+	@RequestMapping(path = "deleteItem.do", method = RequestMethod.POST)
+	public String deleteItemToBackpack(@RequestParam("itemId") int itemId, @RequestParam("advenId") int advenId) {
+		partyDAO.deleItemFromBackpack(advenId, itemId);
+		return "redirect:editBackpack.do?id=" + advenId;
 	}
 
 	public PartyDAO getPartyDOA() {

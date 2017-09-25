@@ -24,8 +24,8 @@
 				  		<td>${back.name}</td>
 			              <td>
 			                <form class="" action="deleteItem.do" method="post">
-			                  <input type="hidden" name="${back.id }" value="1">
-			                  <input type="hidden" name="${id }" value="1">
+			                  <input type="hidden" name="itemId" value="${back.id}">
+			                  <input type="hidden" name="advenId" value="${id}">
 			                  <input type="submit" name="submit" value="Delete">
 			                </form>
 			              </td>
@@ -39,6 +39,7 @@
       <div id="iem-section" class="sub-sections">
 				<h3>Add Items to Backpack</h3>
 				<form class="" action="addItem.do" method="post">
+					<input type="hidden" name="advenId" value="${id}">
 					<select class="" name="itemId">
 						<c:forEach var="item" items="${itemList}">
 							<option value="${item.id}">${item.name}</option>
@@ -53,7 +54,7 @@
 					</p>
 					<p>Item type
 						<select class="" name="type">
-							<c:forEach var="type" items="itemTypes">
+							<c:forEach var="type" items="${itemTypes}">
 								<option>${type}</option>
 							</c:forEach>
 						</select>
